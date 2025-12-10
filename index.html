@@ -6,41 +6,42 @@
     <title>顧客マップDB Pro</title>
     <style>
         :root { --primary: #007AFF; --bg: #F2F2F7; --card: #FFFFFF; --text: #1C1C1E; --gray: #8E8E93; --radius: 16px; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; padding-bottom: 100px; -webkit-font-smoothing: antialiased; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; -webkit-font-smoothing: antialiased; padding-bottom: 100px; }
         .container { max-width: 900px; margin: 0 auto; }
 
         /* ヘッダー */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         h1 { font-size: 1.4rem; font-weight: 800; margin: 0; }
         
+        /* マップエリア */
+        #map-area { height: 400px; background: #ddd; border-radius: 16px; margin-bottom: 20px; position: relative; }
+        #map-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #555; font-weight: bold; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; width: 80%; text-align: center; }
+
         /* 検索窓 */
         .search-box { position: relative; margin-bottom: 20px; }
         .search-box input { width: 100%; padding: 12px 12px 12px 40px; border-radius: 12px; border: 2px solid var(--primary); background: #fff; font-size: 16px; box-sizing: border-box; }
         .search-icon { position: absolute; left: 12px; top: 12px; font-size: 1.2rem; color: var(--primary); }
 
-        /* 入力エリア */
-        .card { background: var(--card); padding: 20px; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        /* 入力カード */
+        .card { background: var(--card); padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; }
         label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--gray); margin-bottom: 5px; }
-        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #E5E5EA; background: #FAFAFA; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #E5E5EA; background: #FAFAFA; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin-bottom: 15px; }
         textarea { height: 100px; font-family: monospace; white-space: pre; overflow-x: scroll; }
         
         /* ボタン */
-        button { width: 100%; padding: 14px; border-radius: 12px; border: none; font-weight: 700; font-size: 16px; cursor: pointer; transition: opacity 0.2s; }
+        button { width: 100%; padding: 14px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-size: 16px; transition: opacity 0.2s; }
         button:active { opacity: 0.7; }
         .btn-main { background: var(--primary); color: white; }
         .btn-sub { background: #E5E5EA; color: #333; font-size: 0.9rem; margin-bottom: 0; }
         .btn-danger { background: #FF3B30; color: white; margin-top: 10px; }
-        .btn-edit { background: #E5E5EA; color: #333; padding: 6px 12px; width: auto; font-size: 0.8rem; }
-
+        .btn-key { background: #34C759; color: white; font-size: 0.9rem; padding: 10px; margin-bottom: 15px; } /* キー保存用 */
+        
         .data-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
 
-        /* ログ・地図 */
-        #status-log { text-align: center; color: var(--gray); margin: 10px 0; font-size: 0.9rem; font-weight: 600; height: 1.2em; }
+        /* ログ */
         #log-area { display:none; background:#222; color:#fff; padding:10px; border-radius:8px; height:100px; overflow-y:scroll; font-family:monospace; font-size:0.8rem; margin-bottom:15px; }
-        .log-err { color:#FF3B30; } .log-ok { color:#34C759; }
-
-        #map-area { height: 350px; background: #ddd; border-radius: var(--radius); margin-bottom: 24px; position: relative; }
-        #map-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #555; font-weight: bold; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; }
+        .log-err { color:#FF3B30; } .log-ok { color:#34C759; } .log-warn { color:#FFD60A; }
+        #status-log { text-align: center; color: var(--gray); margin: 10px 0; font-size: 0.9rem; font-weight: 600; height: 1.2em; }
 
         /* リスト */
         h3 { margin: 20px 0 10px 5px; color: var(--gray); font-size: 1rem; }
@@ -49,7 +50,7 @@
         .customer-item { padding: 14px 16px; border-bottom: 1px solid #F2F2F7; display: flex; justify-content: space-between; align-items: center; }
         .info-main { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
         .info-sub { font-size: 0.85rem; color: var(--gray); display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag { background: #F2F2F7; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: #555; }
+        .tag { background: #F2F2F7; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: #555; margin-right: 5px; }
         .map-icon { text-decoration: none; font-size: 1.2rem; margin-left: 10px; cursor: pointer; }
 
         /* 吹き出し */
@@ -62,8 +63,8 @@
         .ib-map { background: #007AFF; color: white; }
 
         /* モーダル */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: #fff; padding: 24px; border-radius: 20px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:9999; }
+        .modal-content { background:#fff; padding:24px; border-radius:20px; width:90%; max-width:500px; max-height:90vh; overflow-y:auto; }
         
         #hidden-map { position: absolute; top: -9999px; width: 1px; height: 1px; }
     </style>
@@ -78,7 +79,7 @@
         </select>
     </div>
 
-    <div id="map-area"><span id="map-msg">APIキーを入れて登録すると地図が出ます</span></div>
+    <div id="map-area"><span id="map-msg">APIキーを設定すると地図が表示されます</span></div>
 
     <div class="search-box">
         <span class="search-icon">🔍</span>
@@ -90,18 +91,27 @@
             <span>＋ メニュー (登録・データ移行)</span> <span>▼</span>
         </h3>
         <div id="input-area" style="display:none; margin-top:15px;">
-            <label>API Key</label>
-            <input type="password" id="apiKey" placeholder="AIzaSy...">
-            <label>担当者名</label>
+            
+            <label>API Key (New API有効化必須)</label>
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px;">
+                <input type="password" id="apiKey" placeholder="AIzaSy..." style="margin-bottom:0; flex-grow:1;">
+                <button class="btn-key" onclick="saveKeyAndInit()" style="width:auto; margin-bottom:0;">キー保存＆地図表示</button>
+            </div>
+            
+            <label>担当者名 (オプション)</label>
             <input type="text" id="repName" placeholder="例: 佐藤">
-            <label>リスト貼り付け (ExcelコピペOK)</label>
+            
+            <label>リスト貼り付け (Rコード | 店名 | 住所)</label>
             <textarea id="csvInput" placeholder="R002382	焼肉 蕨 千山閣	埼玉県蕨市..."></textarea>
+            
             <button class="btn-main" id="runBtn" onclick="processData()">登録＆分析スタート</button>
+            
             <div class="data-tools">
-                <button class="btn-sub" onclick="downloadData()">💾 データ保存</button>
-                <button class="btn-sub" onclick="document.getElementById('fileInput').click()">📂 データ読込</button>
+                <button class="btn-sub" onclick="downloadData()">💾 データ保存<br><small>(PC→スマホ)</small></button>
+                <button class="btn-sub" onclick="document.getElementById('fileInput').click()">📂 データ読込<br><small>(スマホで開く)</small></button>
                 <input type="file" id="fileInput" style="display:none" onchange="uploadData(this)">
             </div>
+
             <button class="btn-danger" onclick="clearAll()">全データ削除</button>
         </div>
     </div>
@@ -116,13 +126,15 @@
     <div class="modal-content">
         <h3 style="text-align:center; margin-top:0;">編集・備考</h3>
         <input type="hidden" id="edit-id"><input type="hidden" id="orig-addr">
+        
         <label>備考欄</label><textarea id="edit-note" style="height:60px; border:2px solid var(--primary);"></textarea>
         <label>担当</label><input type="text" id="edit-rep">
         <label>Rコード</label><input type="text" id="edit-r">
         <label>店名</label><input type="text" id="edit-name">
-        <label>住所</label><input type="text" id="edit-addr">
+        <label>住所 (変更で自動更新)</label><input type="text" id="edit-addr">
         <label>駅</label><input type="text" id="edit-st">
         <label>時間</label><input type="time" id="edit-time">
+        
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
             <button class="btn-sub" onclick="closeModal()">キャンセル</button>
             <button class="btn-main" onclick="saveEdit()">保存</button>
@@ -142,28 +154,35 @@
     function normalize(s) { return (s||"").replace(/[Ａ-Ｚａ-ｚ０-９]/g, c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).toLowerCase().replace(/\s+/g,""); }
     function log(msg, type="info") { const area=document.getElementById('log-area'); area.style.display='block'; const d=document.createElement('div'); d.innerText=msg; if(type=='err')d.className='log-err'; if(type=='ok')d.className='log-ok'; area.prepend(d); }
 
-    // ★起動時の処理 (ここを修正: 確実にライブラリを待つ)
     window.onload = () => {
         const k = localStorage.getItem('map_apiKey');
         const d = localStorage.getItem('map_db');
         if(k) document.getElementById('apiKey').value = k;
         if(d) { try { db = JSON.parse(d); render(); } catch(e){ db=[]; } }
         
-        // APIキーがあれば即初期化開始
+        // ★修正：キーがあれば、データがなくても地図を出す
         if(k) {
             initSystem(k).then(() => {
                 document.getElementById('map-msg').style.display='none';
-            }).catch(e => {
-                console.log("Map load pending user action or error");
-            });
+            }).catch(e => console.log("Map load waiting"));
         }
     };
 
-    // ★システム初期化関数 (ロードと準備を一括で行う)
-    async function initSystem(key) {
-        if(window.google && map && AdvancedMarkerElement) return; // 既に準備OKなら何もしない
+    // ★追加：キーだけ保存して地図を出すボタン用関数
+    async function saveKeyAndInit() {
+        const key = document.getElementById('apiKey').value.trim();
+        if(!key) return alert("APIキーを入力してください");
+        localStorage.setItem('map_apiKey', key);
+        await initSystem(key);
+        document.getElementById('map-msg').style.display='none';
+        alert("APIキーを保存し、地図を読み込みました！");
+    }
 
-        // 1. ローダー実行
+    // --- Google Maps Init ---
+    async function initSystem(key) {
+        if(window.google && map) return;
+
+        // ローダー
         await new Promise((resolve, reject) => {
             if(document.querySelector('script[src*="maps.googleapis.com"]')) return resolve();
             const script = document.createElement('script');
@@ -174,26 +193,24 @@
             document.head.appendChild(script);
         });
 
-        // 2. ライブラリ読み込み (ここが重要)
-        const { Map } = await google.maps.importLibrary("maps");
-        const { Geocoder } = await google.maps.importLibrary("geocoding");
-        const { Place: PlaceLib } = await google.maps.importLibrary("places");
-        const { AdvancedMarkerElement: MarkerLib } = await google.maps.importLibrary("marker");
+        // ライブラリ読込
+        try {
+            const { Map } = await google.maps.importLibrary("maps");
+            const { Geocoder } = await google.maps.importLibrary("geocoding");
+            const { Place: PlaceLib } = await google.maps.importLibrary("places");
+            const { AdvancedMarkerElement: MarkerLib } = await google.maps.importLibrary("marker");
 
-        // 3. グローバル変数へセット
-        geocoder = new Geocoder();
-        Place = PlaceLib;
-        AdvancedMarkerElement = MarkerLib;
+            geocoder = new Geocoder();
+            Place = PlaceLib;
+            AdvancedMarkerElement = MarkerLib;
 
-        // 4. マップ表示
-        const mapDiv = document.getElementById('map-area');
-        if(!map) {
-            map = new Map(mapDiv, { center:{lat:35.6812, lng:139.7671}, zoom:10, mapId: "DEMO_MAP_ID" });
-            infoWindow = new google.maps.InfoWindow();
-        }
-        
-        // 5. ピンを立てる
-        if(db.length > 0) updateMapPins(db);
+            const mapDiv = document.getElementById('map-area');
+            if(!map) {
+                map = new Map(mapDiv, { center:{lat:35.68, lng:139.76}, zoom:10, mapId: "DEMO_MAP_ID" });
+                infoWindow = new google.maps.InfoWindow();
+            }
+            if(db.length > 0) updateMapPins(db);
+        } catch(e) { log("初期化エラー: "+e, "err"); }
     }
 
     // --- メイン処理 ---
@@ -206,14 +223,12 @@
         localStorage.setItem('map_apiKey', key);
 
         const btn = document.getElementById('runBtn');
-        btn.disabled = true; btn.innerText = "準備中...";
+        btn.disabled = true; btn.innerText = "処理中...";
         document.getElementById('log-area').innerHTML = ""; 
 
         try {
-            // ★処理開始前に必ず初期化を待つ
-            await withTimeout(initSystem(key), 10000);
+            await withTimeout(initSystem(key), 5000);
             
-            btn.innerText = "分析中...";
             const lines = csv.split('\n');
             let count = 0;
 
@@ -236,8 +251,8 @@
                 if(r) existIdx = db.findIndex(d => d.r_code === r);
 
                 try {
-                    const coords = await withTimeout(getCoordinates(cleanAddr), 5000);
-                    const stName = await withTimeout(getStationNew(coords), 5000);
+                    const coords = await withTimeout(getCoordinates(cleanAddr), 3000);
+                    const stName = await withTimeout(getStationNew(coords), 3000);
 
                     const newData = {
                         id: Date.now().toString(36) + Math.random(),
@@ -259,7 +274,7 @@
                     const failData = {
                         id: Date.now().toString(),
                         r_code: r, name: n, address: cleanAddr, 
-                        station: `未特定`, lat: null, lng: null, rep_name: rep, time:"", note:""
+                        station: `未特定 (${msg})`, lat: null, lng: null, rep_name: rep, time:"", note:""
                     };
                     if(existIdx !== -1) db[existIdx] = failData;
                     else db.push(failData);
@@ -274,14 +289,12 @@
             alert(`${count}件 完了しました`);
 
         } catch(e) {
-            log("エラー: "+e.message, "err");
             alert("エラー: " + e.message);
         } finally {
             btn.disabled = false; btn.innerText = "登録＆分析スタート";
         }
     }
 
-    // --- API関数 ---
     function getCoordinates(addr) {
         return new Promise((resolve, reject) => {
             geocoder.geocode({ address: addr }, (results, status) => {
@@ -317,7 +330,7 @@
     }
 
     function updateMapPins(list) {
-        if(!map || !AdvancedMarkerElement) return;
+        if(!map) return;
         markers.forEach(m => m.setMap(null));
         markers = [];
         const bounds = new google.maps.LatLngBounds();
@@ -394,7 +407,6 @@
 
         if(newAddr !== document.getElementById('orig-addr').value) {
             try {
-                await initSystem(document.getElementById('apiKey').value);
                 const coords = await getCoordinates(newAddr);
                 const st = await getStationNew(coords);
                 db[idx].lat = coords.lat; db[idx].lng = coords.lng; db[idx].station = st;
@@ -473,7 +485,7 @@
         });
     }
 
-    // --- データ移行機能 ---
+    // --- データ移行 ---
     function downloadData() {
         if(db.length === 0) return alert("保存するデータがありません");
         const blob = new Blob([JSON.stringify(db)], {type: "application/json"});
@@ -491,8 +503,7 @@
             try {
                 const loaded = JSON.parse(e.target.result);
                 if(confirm(`${loaded.length}件のデータを読み込みますか？`)) {
-                    db = loaded; saveDB(); render(); 
-                    if(document.getElementById('apiKey').value) initSystem(document.getElementById('apiKey').value);
+                    db = loaded; saveDB(); render(); updateMapPins(db);
                     alert("読み込み完了！");
                 }
             } catch(err) { alert("読込失敗"); }
