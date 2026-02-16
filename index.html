@@ -75,21 +75,18 @@
         }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
 
-        /* 検索・フィルタエリア（共通スタイル） */
+        /* 検索・フィルタエリア */
         .search-row { display: flex; gap: 10px; margin-bottom: 10px; }
-        
         .search-box-style { 
             display: flex; align-items: center; background: var(--card); 
             border-radius: var(--radius); padding: 5px 12px; 
             box-shadow: var(--shadow); border: 1px solid var(--border); 
         }
         .place-search-box { flex: 1; }
-        
         .search-input-style { 
             flex: 1; border: none; padding: 10px; font-size: 0.95rem; 
             background: transparent; outline: none; font-family: var(--font-serif); 
         }
-        
         .search-btn-style { 
             background: none; border: none; padding: 0 5px; 
             color: var(--gold); cursor: pointer; display: flex; align-items: center; 
@@ -102,7 +99,6 @@
             color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; 
             box-shadow: none; appearance: none; -webkit-appearance: none; text-align: center; cursor: pointer;
         }
-        select:focus { border-color: var(--gold); outline: none; }
 
         .list-search-box { margin-bottom: 20px; } 
         .list-search-box input { 
@@ -111,263 +107,79 @@
             box-sizing: border-box; box-shadow: var(--shadow); font-family: var(--font-serif);
             transition: 0.3s;
         }
-        .list-search-box input:focus { border-color: var(--gold); }
-        .list-search-icon { position: absolute; left: 15px; top: 13px; color: var(--text-sub); pointer-events: none; }
 
         /* マップ関連 */
-        #map-area { background: #E5E5EA; width: 100%; height: 100%; }
         #google-map-view { width: 100%; height: 100%; }
-        
         .btn-current-loc { 
             position: absolute; bottom: 80px; right: 15px; z-index: 10; 
             width: 44px; height: 44px; background: var(--card); border-radius: 50%; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; 
-            color: var(--text-main); cursor: pointer; 
-            display: flex; align-items: center; justify-content: center; 
-            transition: 0.3s;
+            color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s;
         }
         .btn-current-loc.locked { background: var(--gold); color: white; }
-        .btn-current-loc.unlocked { color: var(--gold); border: 1px solid var(--gold); }
         
         .map-sync-wrapper { 
-            position: absolute; 
-            top: 15px; 
-            left: 15px; /* 左上に配置 */
-            z-index: 10; 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 4px 10px;
+            position: absolute; top: 15px; left: 15px; z-index: 10; 
+            background: rgba(255, 255, 255, 0.95); padding: 4px 10px;
             border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            display: flex; align-items: center; gap: 8px; 
-            font-family: var(--font-serif); 
-            font-size: 0.75rem; 
-            color: var(--text-main); 
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        @media (max-width: 899px) {
-            .map-sync-wrapper { top: 15px; left: 15px; right: auto; }
+            display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); 
+            font-size: 0.75rem; color: var(--text-main); border: 1px solid rgba(0,0,0,0.05);
         }
         
-        /* トグルスイッチ */
         .toggle-switch { position: relative; display: inline-block; width: 34px; height: 18px; } 
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ddd; transition: .4s; border-radius: 22px; }
-        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--gold); }
         input:checked + .slider:before { transform: translateX(16px); }
 
-        /* 統計エリア */
-        #stats-area { 
-            background: var(--card); padding: 20px; border-radius: var(--radius); 
-            margin-bottom: 20px; box-shadow: var(--shadow); 
-        }
+        /* リスト・統計 */
+        #stats-area { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow); }
         .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
-        .stats-total { font-family: var(--font-eng); font-weight: 600; font-size: 0.95rem; color: var(--text-main); white-space: nowrap; }
-        
-        .limit-select { 
-            padding: 4px 10px; border-radius: var(--radius); border: 1px solid #ddd; 
-            font-size: 0.75rem; background: #fff; color: var(--text-sub); font-family: var(--font-serif);
-        }
-
+        .stats-total { font-family: var(--font-eng); font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
         .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-        .stats-item { 
-            font-size: 0.75rem; padding: 5px 12px; background: #f8f8f8; 
-            border-radius: 4px; cursor: pointer; border: 1px solid #eee; 
-            transition: all 0.2s; color: var(--text-sub);
-        }
-        .stats-item.selected { 
-            background: var(--gold); color: #fff; border-color: var(--gold);
-            box-shadow: 0 2px 6px rgba(191, 163, 126, 0.3);
-        }
+        .stats-item { font-size: 0.75rem; padding: 5px 12px; background: #f8f8f8; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: all 0.2s; color: var(--text-sub); }
+        .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
         .stats-count { font-weight: 600; margin-left: 5px; font-family: var(--font-eng); }
 
-        /* リストカード */
-        .customer-item { 
-            background: var(--card); padding: 20px; border-radius: var(--radius); 
-            margin-bottom: 15px; display: flex; 
-            box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02);
-            transition: transform 0.2s;
-        }
-        .customer-item:hover { transform: translateY(-2px); }
-
-        /* アクションボタン */
-        .action-btn { 
-            width: 100%; padding: 8px; border-radius: 4px; 
-            background: #fff; border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub);
-            cursor: pointer; font-family: var(--font-eng); letter-spacing: 0.1em;
-            box-sizing: border-box; 
-            margin: 0;
-            appearance: none;
-            -webkit-appearance: none;
-            line-height: 1.5;
-        }
+        .customer-item { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 15px; display: flex; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; }
+        .action-area { display: flex; flex-direction: column; gap: 8px; margin-left: 20px; min-width: 100px; }
+        .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; }
         .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
-        @media (min-width: 900px) {
-            .customer-item { flex-direction: row; justify-content: space-between; align-items: flex-start; }
-            .action-area { display: flex; flex-direction: column; gap: 8px; margin-left: 20px; min-width: 100px; }
-        }
-
-        @media (max-width: 899px) {
-            .customer-item { flex-direction: column; }
-            .action-area { 
-                display: flex; flex-direction: row; gap: 10px; margin-top: 20px; width: 100%; 
-                border-top: 1px solid #f0f0f0; padding-top: 15px;
-            }
-            .action-btn { 
-                flex: 1; padding: 10px 0; 
-                background: #fcfcfc; border: 1px solid #eee;
-                font-size: 0.8rem; color: var(--text-main); font-weight: 500;
-            }
-        }
-        
-        .info-main { 
-            font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; 
-            margin-bottom: 10px; color: var(--text-main); line-height: 1.4; 
-            display: flex; align-items: center; flex-wrap: wrap;
-            column-gap: 8px; row-gap: 4px; 
-        }
-        
-        .status-dot {
-            width: 8px; height: 8px; border-radius: 50%; display: inline-block;
-            flex-shrink: 0;
-        }
-
+        .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
-        
-        .credit-alert { 
-            color: var(--alert); font-weight: bold; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-        }
-
-        .tag { 
-            background: #f2f2f2; padding: 2px 8px; border-radius: 3px; 
-            font-size: 0.7rem; color: #666; letter-spacing: 0.05em; border: 1px solid #eee;
-        }
+        .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
-        
-        .btn-copy { 
-            font-size: 0.65rem; background: transparent; border: 1px solid #ddd; 
-            padding: 1px 6px; border-radius: 3px; cursor: pointer; color: #999;
-            margin-left: 8px;
-            transition: 0.3s;
-        }
-        .btn-copy:hover { border-color: var(--gold); color: var(--gold); }
-
-        .note-box {
-            font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; 
-            background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block;
-        }
+        .btn-copy { font-size: 0.65rem; background: transparent; border: 1px solid #ddd; padding: 1px 6px; border-radius: 3px; cursor: pointer; color: #999; margin-left: 8px; }
+        .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
         /* モーダル */
-        .mode-switch {
-            display: flex; gap: 15px; margin-bottom: 15px; background: #fcfcfc; padding: 10px; border-radius: var(--radius); border: 1px solid #eee;
-        }
-        .mode-label {
-            display: flex; align-items: center; font-size: 0.8rem; font-weight: 500; cursor: pointer;
-            color: var(--text-sub); font-family: var(--font-serif);
-        }
-        .mode-label input { margin-right: 6px; accent-color: var(--gold); }
-        .mode-label.active { color: var(--text-main); font-weight: bold; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; animation: fadeIn 0.3s ease; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .modal-content h3 { font-family: var(--font-eng); text-align: center; margin-top: 0; font-weight: 600; letter-spacing: 0.1em; color: var(--text-main); margin-bottom: 25px; }
 
         label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); letter-spacing: 0.05em; }
-        input[type="text"], textarea { 
-            width: 100%; padding: 12px; border: 1px solid #ddd; background: #fff; 
-            border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif);
-        }
-        input[type="text"]:focus, textarea:focus { border-color: var(--gold); outline: none; }
-
-        .btn-main { 
-            width: 100%; padding: 14px; background: var(--dark); color: #fff; 
-            border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; 
-            margin-top: 20px; font-family: var(--font-eng); letter-spacing: 0.1em;
-            transition: 0.3s;
-        }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
+        
+        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); letter-spacing: 0.1em; transition: 0.3s; }
         .btn-main:hover { background: var(--gold); }
+        .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); transition: 0.3s; }
 
-        .data-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn-sub { 
-            padding: 10px; background: #fff; border: 1px solid #ddd; 
-            border-radius: var(--radius); font-weight: 500; cursor: pointer; 
-            font-size: 0.8rem; color: var(--text-main); font-family: var(--font-serif);
-            transition: 0.3s;
-        }
-        .btn-sub:hover { border-color: var(--gold); color: var(--gold); }
-
-        .btn-del { 
-            width: 100%; margin-top: 20px; padding: 10px; background: transparent; 
-            color: #999; border: 1px solid #eee; border-radius: var(--radius); 
-            font-weight: 500; cursor: pointer; font-size: 0.75rem; transition: 0.3s;
-        }
-        .btn-del:hover { color: #d32f2f; border-color: #d32f2f; background: #fff5f5; }
-
-        .btn-load-more { 
-            width: 100%; padding: 12px; background: transparent; 
-            border: 1px solid var(--gold); color: var(--gold); 
-            border-radius: 30px; font-weight: 600; margin-top: 20px; cursor: pointer; 
-            font-family: var(--font-eng); letter-spacing: 0.05em; transition: 0.3s;
-        }
-        .btn-load-more:hover { background: var(--gold); color: white; }
-
+        .rep-checklist { max-height: 150px; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .quick-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .chip { 
-            font-size: 0.75rem; background: #fff; padding: 6px 14px; border-radius: 20px; 
-            cursor: pointer; border: 1px solid #ddd; color: var(--text-sub);
-            transition: 0.3s;
-        }
-        .chip:hover { border-color: var(--gold); color: var(--gold); }
-        .chip:active { background: var(--gold); color: white; }
-        .chip-del { color: #ccc; font-weight: bold; margin-left: 8px; cursor: pointer; }
+        .chip { font-size: 0.75rem; background: #fff; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid #ddd; color: var(--text-sub); }
 
-        .modal-overlay { 
-            position: fixed; top:0; left:0; width:100%; height:100%; 
-            background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); 
-            display:none; justify-content:center; align-items:center; z-index:9999; 
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .modal-content { 
-            background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; 
-            max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); 
-            position: relative;
-        }
-        .modal-content h3 {
-            font-family: var(--font-eng); text-align: center; margin-top: 0; 
-            font-weight: 600; letter-spacing: 0.1em; color: var(--text-main); margin-bottom: 25px;
-        }
-
-        .settings-section { 
-            border-bottom: 1px solid #f0f0f0; padding-bottom: 25px; margin-bottom: 25px; 
-        }
-        .settings-section:last-child { border-bottom: none; margin-bottom: 0; }
-
-        .rep-checklist { max-height: 150px; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;}
-        .rep-checklist label { margin: 0; color: var(--text-main); font-weight: 500; font-family: var(--font-serif); }
-
-        #map-placeholder-msg { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            background: rgba(255,255,255,0.9); padding: 30px; border-radius: var(--radius); 
-            font-weight: 500; color: var(--text-main); pointer-events: none; 
-            text-align: center; width: 80%; box-shadow: var(--shadow); 
-            font-family: var(--font-serif); border: 1px solid #eee;
-        }
+        #map-placeholder-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 30px; border-radius: var(--radius); font-weight: 500; text-align: center; width: 80%; border: 1px solid #eee; z-index: 5; }
 
         .info-window-container { font-family: var(--font-serif); padding: 0 5px 5px 0; max-width: 260px; max-height: 250px; overflow-y: auto; }
         .info-window-card { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .info-window-card:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         .info-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; line-height: 1.3; color: var(--text-main); }
         .info-meta { font-size: 0.75rem; color: #777; margin-bottom: 6px; background: #f9f9f9; padding: 2px 6px; border-radius: 2px; display: inline-block;}
         .info-tel { font-weight: 500; color: var(--gold); font-size: 0.9rem; text-decoration: none; margin-bottom: 4px; display: block; font-family: var(--font-eng);}
         .info-addr { font-size: 0.75rem; color: #666; margin-bottom: 6px; line-height: 1.4;}
         .btn-edit-sm { background: #f0f0f0; color: #333; flex: 1; padding: 8px; border-radius: 2px; text-align: center; font-size: 0.75rem; border: none; cursor: pointer; }
-        
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
     </style>
 </head>
 <body>
@@ -376,22 +188,18 @@
     <div class="left-section">
         <div class="search-row">
             <div class="place-search-box search-box-style">
-                <input type="text" id="mapJumpInput" class="place-search-input search-input-style" placeholder="エリア検索 (例: 銀座)" onkeydown="if(event.key==='Enter')searchMapLocation()">
-                <button class="place-search-btn search-btn-style" onclick="searchMapLocation()">
+                <input type="text" id="mapJumpInput" class="search-input-style" placeholder="エリア検索 (例: 銀座)" onkeydown="if(event.key==='Enter')searchMapLocation()">
+                <button class="search-btn-style" onclick="searchMapLocation()">
                     <svg class="svg-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                 </button>
             </div>
         </div>
-
         <div class="map-wrapper">
             <div id="google-map-view"></div>
             <div id="map-placeholder-msg">マップ読込中...</div>
             <div class="map-sync-wrapper">
                 <span>連動</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="mapSyncToggle" onchange="toggleMapSync()">
-                    <span class="slider"></span>
-                </label>
+                <label class="toggle-switch"><input type="checkbox" id="mapSyncToggle" onchange="toggleMapSync()"><span class="slider"></span></label>
             </div>
             <button class="btn-current-loc" id="gpsBtn" onclick="toggleGPS()">
                 <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
@@ -402,27 +210,18 @@
     <div class="right-section">
         <div class="header-area">
             <h1>顧客管理 DB</h1>
-            <button class="btn-settings" onclick="openSettings()">
-                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.488.488 0 0 0-.59.22L2.83 8.89a.48.48 0 0 0 .12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.48.48 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.48.48 0 0 0-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-                設定
-            </button>
+            <button class="btn-settings" onclick="openSettings()">設定</button>
         </div>
-
         <div class="filter-area">
             <select id="prefFilter" onchange="onPrefChange()"><option value="ALL">都道府県: すべて</option></select>
             <select id="stationFilter" onchange="resetAndRender()"><option value="ALL">駅名: すべて</option></select>
         </div>
-        
         <div class="list-search-box search-box-style">
-            <input type="text" id="searchInput" class="search-input-style" placeholder="名前、IDなどで検索..." oninput="resetAndRender()">
-            <button class="search-btn-style" style="pointer-events: none;">
-                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            </button>
+            <input type="text" id="searchInput" class="search-input-style" placeholder="検索..." oninput="resetAndRender()">
         </div>
-
         <div id="stats-area">
             <div class="stats-header">
-                <div class="stats-total" id="stats-total-text">-- 件</div>
+                <div id="stats-total-text" class="stats-total">-- 件</div>
                 <select id="limitSelect" class="limit-select" onchange="changeLimit()">
                     <option value="100">表示: 100件</option>
                     <option value="ALL">表示: 全件</option>
@@ -430,17 +229,13 @@
             </div>
             <div class="stats-grid" id="stats-detail"></div>
         </div>
-
         <div id="result-area"></div>
-        <button id="load-more-btn" class="btn-load-more" onclick="loadMore()" style="display:none;">もっと見る</button>
-        <div style="height:80px;"></div>
     </div>
 </div>
 
 <div id="settingsModal" class="modal-overlay">
     <div class="modal-content">
         <h3>設定</h3>
-        
         <div class="settings-section">
             <label>Google Maps APIキー</label>
             <div style="display:flex; gap:10px;">
@@ -451,41 +246,18 @@
 
         <div class="settings-section">
             <label style="color:var(--text-main); font-size:1rem; margin-bottom:15px;">📥 データ取り込み</label>
-            <div class="mode-switch">
-                <label class="mode-label active">
-                    <input type="radio" name="regMode" value="new" checked onchange="changeRegMode()"> 一括取り込み (新規・更新)
-                </label>
-                <label class="mode-label">
-                    <input type="radio" name="regMode" value="update" onchange="changeRegMode()"> 部分更新 (項目指定)
-                </label>
-            </div>
-
-            <div id="update-options" style="display:none; margin-bottom:15px;">
-                <label>更新する項目を選択 (ID + 値)</label>
-                <select id="updateTarget" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px; font-family:var(--font-serif);" onchange="updatePlaceholder()">
-                    <option value="credit">与信</option>
-                    <option value="station">最寄り駅</option>
-                    <option value="building">ビル名</option>
-                    <option value="tel">電話番号</option>
-                    <option value="note">メモ</option>
-                </select>
-            </div>
-
-            <label id="csv-label">データ貼り付け</label>
-            <div style="font-size:0.7rem; color:var(--text-sub); margin-bottom:8px;" id="format-hint">
+            <div style="font-size:0.7rem; color:var(--text-sub); margin-bottom:8px;">
                 順序: 現在担当 | 顧客No | 法人名 | 窓口店舗名 | 住所 | ビル名 | TEL | 与信
             </div>
-            <textarea id="csvInput" placeholder="" style="height:120px;"></textarea>
-            
+            <textarea id="csvInput" style="height:120px;" placeholder=""></textarea>
             <button class="btn-main" id="runBtn" onclick="processData()">取り込み実行</button>
             <div id="log-area" style="margin-top:10px; font-size:0.7rem; color:#999; text-align:center;">待機中</div>
-            
-            <div class="data-tools">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px;">
                 <button class="btn-sub" onclick="shareOrDownload()">保存 (JSON)</button>
                 <button class="btn-sub" onclick="document.getElementById('fileInput').click()">読込 (JSON)</button>
-                <input type="file" id="fileInput" accept=".json,application/json" style="display:none" onchange="uploadData(this)">
+                <input type="file" id="fileInput" accept=".json" style="display:none" onchange="uploadData(this)">
             </div>
-            <button class="btn-del" onclick="clearAll()">全データ削除</button>
+            <button class="btn-del" onclick="clearAll()" style="width:100%; margin-top:15px; background:none; border:1px solid #eee; color:#999; cursor:pointer; padding:10px;">全データ削除</button>
         </div>
 
         <div class="settings-section">
@@ -495,16 +267,7 @@
         
         <div class="settings-section">
             <label>定型文 (チップ)</label>
-            <div style="display:flex; gap:10px; margin-bottom:10px;">
-                <input type="text" id="newChipInput" placeholder="新しい定型文">
-                <button onclick="addChip()" style="background:var(--gold); color:#fff; border:none; border-radius:2px; padding:0 15px; white-space:nowrap;">追加</button>
-            </div>
             <div id="settings-chip-list" class="quick-chips"></div>
-        </div>
-        
-        <div class="settings-section">
-            <label>ストレージ状況</label>
-            <div style="font-size:0.8rem; margin-bottom:8px;">現在のDB: <span id="current-db-name" style="font-weight:600;"></span></div>
         </div>
 
         <button class="btn-sub" style="width:100%; background:#f5f5f5; border:none;" onclick="document.getElementById('settingsModal').style.display='none'">閉じる</button>
@@ -514,10 +277,9 @@
 <div id="editModal" class="modal-overlay">
     <div class="modal-content">
         <h3>情報編集</h3>
-        <input type="hidden" id="edit-id"><input type="hidden" id="orig-addr">
+        <input type="hidden" id="edit-id">
         <label>メモ</label><textarea id="edit-note" style="height:80px;"></textarea>
         <div id="edit-chip-area" class="quick-chips" style="margin-bottom:15px;"></div>
-        
         <label>与信</label><input type="text" id="edit-credit" style="color:var(--alert); font-weight:bold;">
         <label>最寄り駅</label><input type="text" id="edit-station">
         <label>担当者</label><input type="text" id="edit-rep">
@@ -531,26 +293,25 @@
             <button class="btn-sub" style="flex:1;" onclick="closeModal()">キャンセル</button>
             <button class="btn-main" style="flex:1; margin-top:0;" onclick="saveEdit()">保存</button>
         </div>
-        <button class="btn-del" style="margin-top:20px; border:none;" onclick="deleteCustomer()">削除</button>
     </div>
 </div>
 
 <script>
     const DB_NAME = "map_db"; 
-    let currentLimit = 100;
-    let activeReps = new Set();
-    let mapSyncMode = false;
-    let targetReps = []; 
-    let isPinClick = false; 
-    let myLocationMarker = null; 
-    let watchId = null;
-    let isTrackingLocked = false;
-    let quickChips = ["不在", "移転", "商談中", "完了"];
-    let highlightedId = null;
     let db = [];
     let map, geocoder, AdvancedMarkerElement;
     let markers = [];
     let infoWindow; 
+    let currentLimit = 100;
+    let activeReps = new Set();
+    let mapSyncMode = false;
+    let targetReps = []; 
+    let quickChips = ["不在", "移転", "商談中", "完了"];
+    let highlightedId = null;
+    let isPinClick = false;
+    let watchId = null;
+    let isTrackingLocked = false;
+    let myLocationMarker = null;
 
     function normalize(s) { return (s||"").replace(/[Ａ-Ｚａ-ｚ０-９]/g, c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).toLowerCase().replace(/\s+/g,""); }
     function log(msg) { document.getElementById('log-area').innerText = msg; }
@@ -561,83 +322,26 @@
         const tr = localStorage.getItem('map_target_reps_json');
         const qc = localStorage.getItem('map_quick_chips_json');
         
-        if(tr) { try { targetReps = JSON.parse(tr); } catch(e) { targetReps=[]; } }
-        if(qc) { try { quickChips = JSON.parse(qc); } catch(e) {} }
-        if(d) { try { db = JSON.parse(d); populateFilters(); resetAndRender(); } catch(e){ db=[]; } }
+        if(tr) try { targetReps = JSON.parse(tr); } catch(e) {}
+        if(qc) try { quickChips = JSON.parse(qc); } catch(e) {}
+        if(d) try { db = JSON.parse(d); populateFilters(); render(); } catch(e){ db=[]; }
         
         if(k) {
             document.getElementById('apiKey').value = k;
             initSystem(k);
+        } else {
+            document.getElementById('map-placeholder-msg').innerText = "設定からAPIキーを入力してください";
         }
-        document.getElementById('current-db-name').innerText = DB_NAME;
     };
 
-    function changeRegMode() {
-        const mode = document.querySelector('input[name="regMode"]:checked').value;
-        const updateOptions = document.getElementById('update-options');
-        const hint = document.getElementById('format-hint');
-        if(mode === 'new') {
-            updateOptions.style.display = 'none';
-            hint.innerText = "順序: 現在担当 | 顧客No | 法人名 | 窓口店舗名 | 住所 | ビル名 | TEL | 与信";
-        } else {
-            updateOptions.style.display = 'block';
-            hint.innerText = "IDと更新値を貼り付けてください";
-        }
-    }
-
-    async function processData() {
-        const mode = document.querySelector('input[name="regMode"]:checked').value;
-        const csv = document.getElementById('csvInput').value.trim(); 
-        if(!csv) return alert('データを貼り付けてください');
-        
-        const btn = document.getElementById('runBtn'); btn.disabled = true; btn.innerText = "処理中...";
-        const lines = csv.split('\n'); 
-        let count = 0; let updateCount = 0;
-
-        if (mode === 'update') {
-            const targetField = document.getElementById('updateTarget').value;
-            for(let line of lines) {
-                const cols = line.trim().split(/\t/).map(s=>s.trim());
-                if(cols.length < 2) continue;
-                const target = db.find(d => d.r_code === cols[0]);
-                if(target) { target[targetField] = cols[1]; updateCount++; }
-            }
-        } else {
-            // 一括取り込み（8列形式）
-            for(let i = 0; i < lines.length; i++) {
-                const cols = lines[i].trim().split(/\t/).map(s=>s.trim());
-                if(cols.length < 5) continue; 
-
-                // 列順: 0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
-                let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + cols[3]).trim();
-                let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
-
-                const existing = db.find(d => d.r_code === r);
-                if (existing) {
-                    existing.rep_name = rep; existing.name = name; existing.address = addr;
-                    existing.building = build; existing.tel = tel; existing.credit = credit;
-                    updateCount++;
-                } else {
-                    try {
-                        const coords = await new Promise((res, rej) => geocoder.geocode({ address: addr }, (r, s) => s==='OK'?res({lat: r[0].geometry.location.lat(), lng: r[0].geometry.location.lng()}):rej(s)));
-                        db.push({ id: Math.random().toString(36).substr(2, 9), r_code: r, rep_name: rep, name: name, building: build, address: addr, tel: tel, lat: coords.lat, lng: coords.lng, note: "", station: "", credit: credit });
-                        count++;
-                        log(`${i+1}/${lines.length} 件目 処理中...`);
-                    } catch(e) {}
-                    await new Promise(r => setTimeout(r, 450));
-                }
-            }
-        }
-        saveDB(); populateFilters(); resetAndRender();
-        alert(`完了: 新規 ${count} 件 / 更新 ${updateCount} 件`);
-        btn.disabled = false; btn.innerText = "取り込み実行"; log("待機中");
-    }
-
     async function initSystem(key) {
-        if(!window.google) {
-            const s = document.createElement('script');
-            s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places,geocoding,marker,geometry`;
-            s.async = true; await new Promise(res => s.onload = res);
+        if(!window.google || !window.google.maps) {
+            await new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places,geocoding,marker,geometry`;
+                s.async = true; s.onload = resolve;
+                document.head.appendChild(s);
+            });
         }
         const { Map } = await google.maps.importLibrary("maps"); 
         const { Geocoder } = await google.maps.importLibrary("geocoding");
@@ -645,9 +349,44 @@
         geocoder = new Geocoder(); AdvancedMarkerElement = AM;
         map = new Map(document.getElementById('google-map-view'), { center:{lat:35.68, lng:139.76}, zoom:13, mapId: "DEMO_MAP_ID", mapTypeControl: false, streetViewControl: false });
         infoWindow = new google.maps.InfoWindow();
-        map.addListener('idle', () => { if(!isPinClick && mapSyncMode) resetAndRender(); isPinClick=false; });
+        map.addListener('idle', () => { if(!isPinClick && mapSyncMode) render(); isPinClick=false; });
         document.getElementById('map-placeholder-msg').style.display='none';
         render();
+    }
+
+    async function processData() {
+        const csv = document.getElementById('csvInput').value.trim(); 
+        if(!csv) return alert('データを貼り付けてください');
+        const btn = document.getElementById('runBtn'); btn.disabled = true; btn.innerText = "処理中...";
+        const lines = csv.split('\n'); 
+        let count = 0; let updateCount = 0;
+
+        for(let i = 0; i < lines.length; i++) {
+            const cols = lines[i].trim().split(/\t/).map(s=>s.trim());
+            if(cols.length < 5) continue; 
+
+            // 8列順序: 0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
+            let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + cols[3]).trim();
+            let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
+
+            const existing = db.find(d => d.r_code === r);
+            if (existing) {
+                existing.rep_name = rep; existing.name = name; existing.address = addr;
+                existing.building = build; existing.tel = tel; existing.credit = credit;
+                updateCount++;
+            } else {
+                try {
+                    const coords = await new Promise((res, rej) => geocoder.geocode({ address: addr }, (r, s) => s==='OK'?res({lat: r[0].geometry.location.lat(), lng: r[0].geometry.location.lng()}):rej(s)));
+                    db.push({ id: Math.random().toString(36).substr(2, 9), r_code: r, rep_name: rep, name: name, building: build, address: addr, tel: tel, lat: coords.lat, lng: coords.lng, note: "", station: "", credit: credit });
+                    count++;
+                } catch(e) {}
+                await new Promise(r => setTimeout(r, 450));
+            }
+            if (i % 10 === 0) log(`${i+1}/${lines.length} 件目 処理中...`);
+        }
+        saveDB(); populateFilters(); render();
+        alert(`完了: 新規 ${count} / 更新 ${updateCount}`);
+        btn.disabled = false; btn.innerText = "取り込み実行"; log("待機中");
     }
 
     function render() {
@@ -658,10 +397,15 @@
 
         let filtered = db.filter(d => {
             if(fPref !== "ALL" && !d.address.includes(fPref)) return false;
-            if(fSt !== "ALL" && (d.station||"") !== fSt) return false; 
-            if(!q) return true;
-            return normalize(d.name + d.r_code + d.rep_name + d.address).includes(q);
+            if(fSt !== "ALL" && d.station !== fSt) return false; 
+            return !q || normalize(d.name + d.r_code + d.rep_name + d.address).includes(q);
         });
+
+        if(mapSyncMode && map) {
+            const center = map.getCenter();
+            filtered.forEach(d => d._dist = google.maps.geometry.spherical.computeDistanceBetween(center, new google.maps.LatLng(d.lat, d.lng)));
+            filtered.sort((a, b) => a._dist - b._dist);
+        }
 
         const counts = {}; filtered.forEach(d => counts[d.rep_name] = (counts[d.rep_name] || 0) + 1);
         const detailBox = document.getElementById('stats-detail'); detailBox.innerHTML = "";
@@ -673,8 +417,7 @@
         });
 
         let targets = activeReps.size ? filtered.filter(d => activeReps.has(d.rep_name)) : filtered;
-        document.getElementById('stats-total-text').innerText = `該当: ${targets.length} 件`;
-        
+        document.getElementById('stats-total-text').innerText = `該当: ${targets.length}`;
         const displayTargets = targets.slice(0, currentLimit);
         updateMapPins(displayTargets);
 
@@ -686,7 +429,6 @@
                 <div class="info-sub"><span class="tag tag-id">${c.r_code}</span>${c.rep_name}${c.station ? `<span class="tag">${c.station}</span>` : ""}</div>
                 <div class="info-sub">${c.tel} <button class="btn-copy" onclick="copyToClipboard('${c.tel}')">COPY</button></div>
                 <div class="info-sub">${c.address}</div>
-                ${c.building ? `<div class="info-sub">${c.building}</div>` : ""}
                 ${c.note ? `<div class="note-box">${c.note}</div>` : ""}
             </div>
             <div class="action-area">
@@ -717,6 +459,23 @@
     }
 
     function panToMap(id, lat, lng) { highlightedId = id; map.setZoom(17); map.panTo({lat, lng}); if(window.innerWidth < 900) document.querySelector('.left-section').scrollIntoView({behavior:'smooth'}); render(); }
+    
+    function openSettings() {
+        const repList = document.getElementById('rep-checklist'); repList.innerHTML = "";
+        const allReps = [...new Set(db.map(d => d.rep_name || "担当なし"))].sort();
+        allReps.forEach(name => {
+            const div = document.createElement('div');
+            div.innerHTML = `<label><input type="checkbox" value="${name}" ${targetReps.includes(name)?'checked':''} onchange="toggleTargetRep(this)"> ${name}</label>`;
+            repList.appendChild(div);
+        });
+        const list = document.getElementById('settings-chip-list'); list.innerHTML = "";
+        quickChips.forEach((c, idx) => { const span = document.createElement('span'); span.className = 'chip'; span.innerHTML = `${c} <span onclick="quickChips.splice(${idx},1);openSettings()">×</span>`; list.appendChild(span); });
+        document.getElementById('current-db-name').innerText = DB_NAME;
+        document.getElementById('settingsModal').style.display='flex';
+    }
+
+    function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
+    
     function openEdit(id) {
         const d = db.find(x => x.id === id); if(!d) return;
         document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note||""; 
@@ -725,22 +484,24 @@
         document.getElementById('edit-building').value = d.building; document.getElementById('edit-tel').value = d.tel;
         document.getElementById('edit-addr').value = d.address; document.getElementById('edit-station').value = d.station||"";
         document.getElementById('edit-credit').value = d.credit||"";
-
         const chipArea = document.getElementById('edit-chip-area'); chipArea.innerHTML = "";
-        quickChips.forEach(t => { const sp = document.createElement('span'); sp.className='chip'; sp.innerText=t; sp.onclick = () => { const a = document.getElementById('edit-note'); a.value = (a.value ? a.value + " " : "") + t; }; chipArea.appendChild(sp); });
+        quickChips.forEach(t => { const sp = document.createElement('span'); sp.className='chip'; sp.innerText=t; sp.onclick = () => document.getElementById('edit-note').value += (document.getElementById('edit-note').value ? " " : "") + t; chipArea.appendChild(sp); });
         document.getElementById('editModal').style.display='flex'; 
     }
-    async function saveEdit() {
-        const id = document.getElementById('edit-id').value; const idx = db.findIndex(x => x.id === id); if(idx === -1) return;
-        db[idx].note = document.getElementById('edit-note').value; db[idx].rep_name = document.getElementById('edit-rep').value;
-        db[idx].r_code = document.getElementById('edit-r').value; db[idx].name = (document.getElementById('edit-corp').value + " " + document.getElementById('edit-shop').value).trim();
-        db[idx].building = document.getElementById('edit-building').value; db[idx].tel = document.getElementById('edit-tel').value;
-        db[idx].address = document.getElementById('edit-addr').value; db[idx].station = document.getElementById('edit-station').value;
-        db[idx].credit = document.getElementById('edit-credit').value;
-        saveDB(); render(); closeModal(); 
+
+    function saveEdit() {
+        const id = document.getElementById('edit-id').value; const idx = db.findIndex(x => x.id === id);
+        if(idx !== -1) {
+            db[idx].note = document.getElementById('edit-note').value; db[idx].rep_name = document.getElementById('edit-rep').value;
+            db[idx].r_code = document.getElementById('edit-r').value; db[idx].name = (document.getElementById('edit-corp').value + " " + document.getElementById('edit-shop').value).trim();
+            db[idx].building = document.getElementById('edit-building').value; db[idx].tel = document.getElementById('edit-tel').value;
+            db[idx].address = document.getElementById('edit-addr').value; db[idx].station = document.getElementById('edit-station').value;
+            db[idx].credit = document.getElementById('edit-credit').value;
+            saveDB(); render(); closeModal();
+        }
     }
+
     function closeModal() { document.getElementById('editModal').style.display='none'; }
-    function deleteCustomer() { if(confirm("削除しますか？")) { db = db.filter(x => x.id !== document.getElementById('edit-id').value); saveDB(); render(); closeModal(); } }
     function saveDB() { localStorage.setItem(DB_NAME, JSON.stringify(db)); }
     function populateFilters() {
         const pSel=document.getElementById('prefFilter'); pSel.innerHTML='<option value="ALL">都道府県: すべて</option>';
@@ -748,16 +509,13 @@
     }
     function onPrefChange() { render(); }
     function toggleMapSync() { mapSyncMode = document.getElementById('mapSyncToggle').checked; if(mapSyncMode) render(); }
-    function resetAndRender() { render(); }
     function changeLimit() { currentLimit = document.getElementById('limitSelect').value === 'ALL' ? 99999 : 100; render(); }
-    function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
-    function addChip() { const v = document.getElementById('newChipInput').value.trim(); if(v){ quickChips.push(v); localStorage.setItem('map_quick_chips_json', JSON.stringify(quickChips)); renderChipsSettings(); } }
-    function renderChipsSettings() { const list = document.getElementById('settings-chip-list'); list.innerHTML = ""; quickChips.forEach((c, idx) => { const span = document.createElement('span'); span.className = 'chip'; span.innerHTML = `${c} <span onclick="quickChips.splice(${idx},1);renderChipsSettings()">×</span>`; list.appendChild(span); }); }
     function shareOrDownload() { const b = new Blob([JSON.stringify(db)], {type: 'application/json'}); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `map_data.json`; a.click(); }
     function uploadData(i) { const f=i.files[0]; if(!f)return; const r=new FileReader(); r.onload=e=>{try{db=JSON.parse(e.target.result);saveDB();populateFilters();render();alert("読込完了");}catch(z){alert("失敗");}}; r.readAsText(f); }
     function clearAll() { if(confirm("全消去しますか？")) { localStorage.removeItem(DB_NAME); location.reload(); } }
     function searchMapLocation() { const input = document.getElementById('mapJumpInput').value; if(input && geocoder) geocoder.geocode({ address: input }, (res, status) => { if (status === 'OK') { map.setCenter(res[0].geometry.location); map.setZoom(14); } }); }
-    function toggleGPS() { if (!navigator.geolocation) return; if (watchId) { navigator.geolocation.clearWatch(watchId); watchId = null; isTrackingLocked = false; } else { isTrackingLocked = true; watchId = navigator.geolocation.watchPosition((pos) => { const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude }; if (isTrackingLocked) map.panTo(loc); }, null, { enableHighAccuracy: true }); } document.getElementById('gpsBtn').classList.toggle('locked'); }
+    function toggleGPS() { if (watchId) { navigator.geolocation.clearWatch(watchId); watchId = null; } else { watchId = navigator.geolocation.watchPosition((pos) => { if (map) map.panTo({ lat: pos.coords.latitude, lng: pos.coords.longitude }); }, null, { enableHighAccuracy: true }); } document.getElementById('gpsBtn').classList.toggle('locked'); }
+    function saveKeyAndInit() { const k=document.getElementById('apiKey').value; if(!k)return; localStorage.setItem('map_apiKey', k); initSystem(k); alert("保存しました"); }
     function copyToClipboard(t) { navigator.clipboard.writeText(t).then(() => alert("コピー完了: " + t)); }
 </script>
 </body>
