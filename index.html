@@ -116,7 +116,9 @@
             position: absolute; bottom: 80px; right: 15px; z-index: 10; 
             width: 44px; height: 44px; background: var(--card); border-radius: 50%; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; 
-            color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            color: var(--text-main); cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; 
+            transition: 0.3s;
         }
         .btn-current-loc.locked { background: var(--gold); color: white; }
         .btn-current-loc.unlocked { color: var(--gold); border: 1px solid var(--gold); }
@@ -136,21 +138,21 @@
         input:checked + .slider { background-color: var(--gold); }
         input:checked + .slider:before { transform: translateX(16px); }
 
-        /* 統計・リスト */
+        /* 統計エリア */
         #stats-area { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow); }
         .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
         .stats-total { font-family: var(--font-eng); font-weight: 600; font-size: 0.95rem; color: var(--text-main); white-space: nowrap; }
         .limit-select { padding: 4px 10px; border-radius: var(--radius); border: 1px solid #ddd; font-size: 0.75rem; background: #fff; color: var(--text-sub); font-family: var(--font-serif); }
-
         .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; }
         .stats-item { font-size: 0.75rem; padding: 5px 12px; background: #f8f8f8; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: all 0.2s; color: var(--text-sub); }
         .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 2px 6px rgba(191, 163, 126, 0.3); }
         .stats-count { font-weight: 600; margin-left: 5px; font-family: var(--font-eng); }
 
+        /* リストカード */
         .customer-item { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 15px; display: flex; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; }
         .customer-item:hover { transform: translateY(-2px); }
-        .action-area { display: flex; flex-direction: column; gap: 8px; min-width: 100px; margin-left: 20px; }
-        .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; appearance: none; -webkit-appearance: none; line-height: 1.5; }
+        .action-area { display: flex; flex-direction: column; gap: 8px; margin-left: 20px; min-width: 100px; }
+        .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; line-height: 1.5; }
         .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
         @media (max-width: 899px) {
@@ -158,32 +160,31 @@
             .action-area { display: flex; flex-direction: row; gap: 10px; margin-top: 20px; width: 100%; border-top: 1px solid #f0f0f0; padding-top: 15px; }
             .action-btn { flex: 1; padding: 10px 0; background: #fcfcfc; border: 1px solid #eee; font-size: 0.8rem; color: var(--text-main); font-weight: 500; }
         }
-
+        
         .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
         .credit-alert { color: var(--alert); font-weight: bold; }
         .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; letter-spacing: 0.05em; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
-        .btn-copy { font-size: 0.65rem; background: transparent; border: 1px solid #ddd; padding: 1px 6px; border-radius: 3px; cursor: pointer; color: #999; transition: 0.3s; margin-left: 8px; }
+        .btn-copy { font-size: 0.65rem; background: transparent; border: 1px solid #ddd; padding: 1px 6px; border-radius: 3px; cursor: pointer; color: #999; margin-left: 8px; transition: 0.3s; }
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
+        /* モーダル */
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; animation: fadeIn 0.3s ease; }
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
         .modal-content h3 { font-family: var(--font-eng); text-align: center; margin-top: 0; font-weight: 600; letter-spacing: 0.1em; color: var(--text-main); margin-bottom: 25px; }
 
         label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); letter-spacing: 0.05em; }
         input[type="text"], textarea, input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
-
         .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); letter-spacing: 0.1em; transition: 0.3s; }
         .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); transition: 0.3s; }
-        .btn-del { width: 100%; margin-top: 20px; padding: 10px; background: transparent; color: #999; border: 1px solid #eee; border-radius: var(--radius); cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
+        .btn-del { width: 100%; margin-top: 20px; padding: 10px; background: transparent; color: #999; border: 1px solid #eee; border-radius: var(--radius); font-weight: 500; cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
 
         .rep-checklist { max-height: 150px; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .rep-checklist label { margin: 0; color: var(--text-main); font-weight: 500; font-family: var(--font-serif); display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .quick-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
         .chip { font-size: 0.75rem; background: #fff; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid #ddd; color: var(--text-sub); transition: 0.3s; }
-        
+
         #map-placeholder-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 30px; border-radius: var(--radius); font-weight: 500; text-align: center; width: 80%; box-shadow: var(--shadow); font-family: var(--font-serif); border: 1px solid #eee; z-index: 5; }
 
         .info-window-container { font-family: var(--font-serif); padding: 0 5px 5px 0; max-width: 260px; max-height: 250px; overflow-y: auto; }
@@ -192,7 +193,7 @@
         .info-meta { font-size: 0.75rem; color: #777; margin-bottom: 6px; background: #f9f9f9; padding: 2px 6px; border-radius: 2px; display: inline-block;}
         .info-tel { font-weight: 500; color: var(--gold); font-size: 0.9rem; text-decoration: none; margin-bottom: 4px; display: block; font-family: var(--font-eng);}
         .info-addr { font-size: 0.75rem; color: #666; margin-bottom: 6px; line-height: 1.4;}
-        .btn-edit-sm { background: #f0f0f0; color: #333; flex: 1; padding: 8px; border-radius: 2px; text-align: center; font-size: 0.75rem; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-edit-sm { background: #f0f0f0; color: #333; flex: 1; padding: 8px; border-radius: 2px; text-align: center; font-size: 0.75rem; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -243,7 +244,7 @@
             <div class="stats-grid" id="stats-detail"></div>
         </div>
         <div id="result-area"></div>
-        <button id="load-more-btn" class="btn-load-more" onclick="loadMore()" style="display:none;">もっと見る</button>
+        <button id="load-more-btn" style="display:none;" onclick="loadMore()">もっと見る</button>
         <div style="height:80px;"></div>
     </div>
 </div>
@@ -299,7 +300,7 @@
         <label>最寄り駅</label><input type="text" id="edit-station">
         <label>担当者</label><input type="text" id="edit-rep">
         <label>管理ID</label><input type="text" id="edit-r">
-        <label>法人・店舗名</label><input type="text" id="edit-name">
+        <label>店名・社名</label><input type="text" id="edit-name">
         <label>ビル名</label><input type="text" id="edit-building">
         <label>電話番号</label><input type="text" id="edit-tel">
         <label>住所</label><input type="text" id="edit-addr">
@@ -363,7 +364,7 @@
         for(let i = 0; i < lines.length; i++) {
             const cols = lines[i].trim().split(/\t/).map(s=>s.trim());
             if(cols.length < 5) continue; 
-            // 8列順: 0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
+            // 8列: 0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
             let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + cols[3]).trim();
             let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
 
@@ -419,7 +420,6 @@
             div.innerHTML = `<div style="flex:1;"><div class="info-main"><span class="status-dot" style="background:${color};"></span>${c.name}${c.credit ? `<span class="credit-alert">【${c.credit}】</span>` : ""}</div><div class="info-sub"><span class="tag tag-id">${c.r_code}</span>${c.rep_name}${c.station ? `<span class="tag">${c.station}</span>` : ""}</div><div class="info-sub">${c.tel} <button class="btn-copy" onclick="copyToClipboard('${c.tel}')">COPY</button></div><div class="info-sub">${c.address}</div>${c.note ? `<div class="note-box">${c.note}</div>` : ""}</div><div class="action-area"><button onclick="openEdit('${c.id}')" class="action-btn">編集</button><a href="tel:${c.tel}" class="action-btn">発信</a><button onclick="panToMap('${c.id}', ${c.lat},${c.lng})" class="action-btn">地図</button></div>`;
             area.appendChild(div);
         });
-        document.getElementById('load-more-btn').style.display = (targets.length > currentLimit) ? 'block' : 'none';
     }
 
     function updateMapPins(displayTargets) {
@@ -449,6 +449,7 @@
         allReps.forEach(name => { repList.innerHTML += `<label><input type="checkbox" value="${name}" ${targetReps.includes(name)?'checked':''} onchange="toggleTargetRep(this)"> ${name}</label>`; });
         const list = document.getElementById('settings-chip-list'); list.innerHTML = "";
         quickChips.forEach((c, idx) => { list.innerHTML += `<span class="chip">${c} <span onclick="quickChips.splice(${idx},1);openSettings()">×</span></span>`; });
+        document.getElementById('current-db-name').innerText = DB_NAME;
         document.getElementById('settingsModal').style.display='flex';
     }
     function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
@@ -476,13 +477,12 @@
     function onPrefChange() { render(); }
     function toggleMapSync() { mapSyncMode = document.getElementById('mapSyncToggle').checked; if(mapSyncMode) render(); }
     function changeLimit() { currentLimit = document.getElementById('limitSelect').value === 'ALL' ? 99999 : 100; render(); }
-    function loadMore() { currentLimit += 100; render(); }
     function shareOrDownload() { const b = new Blob([JSON.stringify(db)], {type: 'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `map_data.json`; a.click(); }
     function uploadData(i) { const r=new FileReader(); r.onload=e=>{try{db=JSON.parse(e.target.result);saveDB();populateFilters();render();alert("完了");}catch(z){alert("失敗");}}; r.readAsText(i.files[0]); }
     function clearAll() { if(confirm("全消去？")) { localStorage.removeItem(DB_NAME); location.reload(); } }
     function searchMapLocation() { const input = document.getElementById('mapJumpInput').value; if(input && geocoder) geocoder.geocode({ address: input }, (res, status) => { if (status === 'OK') { map.setCenter(res[0].geometry.location); map.setZoom(14); } }); }
     function toggleGPS() { if (watchId) { navigator.geolocation.clearWatch(watchId); watchId = null; } else { watchId = navigator.geolocation.watchPosition((pos) => { if (map) map.panTo({ lat: pos.coords.latitude, lng: pos.coords.longitude }); }, null, { enableHighAccuracy: true }); } document.getElementById('gpsBtn').classList.toggle('locked'); }
-    function saveKeyAndInit() { const k=document.getElementById('apiKey').value; if(!k)return; localStorage.setItem('map_apiKey', k); location.reload(); }
+    function saveKeyAndInit() { const k=document.getElementById('apiKey').value; if(!k)return; localStorage.setItem('map_apiKey', k); initSystem(k); }
     function copyToClipboard(t) { navigator.clipboard.writeText(t).then(() => alert("コピー完了: " + t)); }
 </script>
 </body>
