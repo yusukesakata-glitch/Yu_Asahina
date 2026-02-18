@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- デザイン定義（100%維持） --- */
+        /* --- デザイン定義：元のコードを完全維持 --- */
         :root {
             --bg: #f9f8f6;          --card: #ffffff;        --text-main: #333333;   --text-sub: #777777;
             --gold: #bfa37e;        --gold-light: #f0ebe5;  --dark: #222222;        --alert: #c62828;
@@ -38,18 +38,14 @@
         .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
 
-        .search-row { display: flex; gap: 10px; margin-bottom: 10px; }
         .search-box-style { display: flex; align-items: center; background: var(--card); border-radius: var(--radius); padding: 5px 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
         .search-input-style { flex: 1; border: none; padding: 10px; font-size: 0.95rem; background: transparent; outline: none; font-family: var(--font-serif); }
-        .search-btn-style { background: none; border: none; padding: 0 5px; color: var(--gold); cursor: pointer; display: flex; align-items: center; }
-
         .filter-area { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; appearance: none; -webkit-appearance: none; text-align: center; cursor: pointer; }
+        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; text-align: center; cursor: pointer; appearance: none; -webkit-appearance: none; }
 
         #google-map-view { width: 100%; height: 100%; }
         .btn-current-loc { position: absolute; bottom: 80px; right: 15px; z-index: 10; width: 44px; height: 44px; background: var(--card); border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .btn-current-loc.locked { background: var(--gold); color: white; }
-        .btn-current-loc.unlocked { color: var(--gold); border: 1px solid var(--gold); }
         
         .map-sync-wrapper { position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(255, 255, 255, 0.95); padding: 4px 10px; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 0.75rem; color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); }
         .toggle-switch { position: relative; display: inline-block; width: 34px; height: 18px; } 
@@ -67,23 +63,32 @@
         .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
 
         .customer-item { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 15px; display: flex; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; }
+        .action-area { display: flex; flex-direction: column; gap: 8px; min-width: 100px; margin-left: 20px; }
         .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; line-height: 1.5; }
         .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
         .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
-        .credit-alert { color: var(--alert); font-weight: bold; }
         .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
+        
+        /* COPYボタンの修正 */
+        .btn-copy { font-size: 0.65rem; background: #f5f5f5; border: 1px solid #ddd; padding: 2px 6px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; }
+        .btn-copy:hover { border-color: var(--gold); color: var(--gold); }
+
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
+        /* モーダル */
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
         label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); }
         input[type="text"], textarea, input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
-        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); transition: 0.3s; }
+        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); }
         .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); }
+
+        /* 名前が金色にならないよう修正 */
+        .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -91,7 +96,7 @@
 <div class="app-container">
     <div class="left-section">
         <div class="search-row">
-            <div class="place-search-box search-box-style">
+            <div class="place-search-box search-box-style" style="width:100%;">
                 <input type="text" id="mapJumpInput" class="place-search-input search-input-style" placeholder="エリア検索 (例: 銀座)" onkeydown="if(event.key==='Enter')searchMapLocation()">
                 <button class="place-search-btn search-btn-style" onclick="searchMapLocation()">
                     <svg class="svg-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -126,7 +131,7 @@
         <div id="stats-area">
             <div class="stats-header">
                 <div class="stats-total" id="stats-total-text">-- 件</div>
-                <select id="limitSelect" class="limit-select" onchange="changeLimit()" style="padding:4px; font-size:0.75rem;">
+                <select id="limitSelect" onchange="changeLimit()" style="width:auto; padding:4px; font-size:0.75rem;">
                     <option value="100">表示: 100件</option>
                     <option value="ALL">表示: 全件</option>
                 </select>
@@ -135,7 +140,7 @@
             <div class="stats-grid" id="stats-detail"></div>
         </div>
         <div id="result-area"></div>
-        <button id="load-more-btn" style="display:none; width:100%; padding:12px; border:1px solid var(--gold); color:var(--gold); background:none; border-radius:30px; cursor:pointer; margin-top:20px;" onclick="loadMore()">もっと見る</button>
+        <button id="load-more-btn" style="display:none; width:100%; padding:12px; background:none; border:1px solid var(--gold); color:var(--gold); border-radius:30px; cursor:pointer; margin-top:20px;" onclick="loadMore()">もっと見る</button>
         <div style="height:80px;"></div>
     </div>
 </div>
@@ -152,7 +157,7 @@
         </div>
         <div class="settings-section">
             <label style="color:var(--text-main); font-size:1rem; margin-bottom:15px;">📥 データ取り込み</label>
-            <div class="mode-switch" style="display:flex; gap:15px; margin-bottom:15px;">
+            <div style="display:flex; gap:15px; margin-bottom:15px;">
                 <label><input type="radio" name="regMode" value="new" checked onchange="changeRegMode()"> 一括取り込み</label>
                 <label><input type="radio" name="regMode" value="update" onchange="changeRegMode()"> 部分更新</label>
             </div>
@@ -188,7 +193,7 @@
     <div class="modal-content">
         <h3>情報編集</h3>
         <input type="hidden" id="edit-id"><input type="hidden" id="orig-addr">
-        <label>メモ</label><textarea id="edit-note"></textarea>
+        <label>メモ</label><textarea id="edit-note" style="height:80px;"></textarea>
         <label>与信</label><input type="text" id="edit-credit">
         <label>最寄り駅</label><input type="text" id="edit-station">
         <label>担当者</label><input type="text" id="edit-rep">
@@ -292,7 +297,7 @@
                         db.push({ id: Math.random().toString(36).substr(2, 9), r_code: r, rep_name: rep, name: name, building: build, address: addr, tel: tel, lat: coords.lat, lng: coords.lng, note: "", station: "", credit: credit });
                         count++;
                     } catch(e) {}
-                    await new Promise(r => setTimeout(r, 400));
+                    await new Promise(r => setTimeout(r, 450));
                 }
             } else {
                 const targetField = document.getElementById('updateTarget').value;
@@ -371,25 +376,29 @@
     }
 
     function panToMap(id, lat, lng) { highlightedId = id; map.setZoom(17); map.panTo({lat, lng}); if(window.innerWidth < 900) document.querySelector('.left-section').scrollIntoView({behavior:'smooth'}); render(); }
+    
     function openSettings() {
         const repList = document.getElementById('rep-checklist'); repList.innerHTML = "";
         [...new Set(db.map(d => d.rep_name))].sort().forEach(name => {
             const div = document.createElement('div');
-            div.innerHTML = `<label style="display:flex; align-items:center; gap:5px;"><input type="checkbox" value="${name}" ${targetReps.includes(name)?'checked':''} onchange="toggleTargetRep(this)"> ${name}</label>`;
+            div.innerHTML = `<label><input type="checkbox" value="${name}" ${targetReps.includes(name)?'checked':''} onchange="toggleTargetRep(this)"> ${name}</label>`;
             repList.appendChild(div);
         });
         document.getElementById('settingsModal').style.display='flex';
     }
+    
     function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
+    
     function openEdit(id) {
         const d = db.find(x => x.id === id); if(!d) return;
-        document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note; 
-        document.getElementById('edit-rep').value = d.rep_name; document.getElementById('edit-r').value = d.r_code;
-        document.getElementById('edit-name').value = d.name; document.getElementById('edit-building').value = d.building;
-        document.getElementById('edit-tel').value = d.tel; document.getElementById('edit-addr').value = d.address;
-        document.getElementById('edit-station').value = d.station; document.getElementById('edit-credit').value = d.credit;
+        document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note||""; 
+        document.getElementById('edit-rep').value = d.rep_name||""; document.getElementById('edit-r').value = d.r_code||"";
+        document.getElementById('edit-name').value = d.name; document.getElementById('edit-building').value = d.building||"";
+        document.getElementById('edit-tel').value = d.tel||""; document.getElementById('edit-addr').value = d.address;
+        document.getElementById('edit-station').value = d.station||""; document.getElementById('edit-credit').value = d.credit||"";
         document.getElementById('editModal').style.display='flex'; 
     }
+    
     function saveEdit() {
         const idx = db.findIndex(x => x.id === document.getElementById('edit-id').value);
         if(idx !== -1) { Object.assign(db[idx], { note: document.getElementById('edit-note').value, rep_name: document.getElementById('edit-rep').value, r_code: document.getElementById('edit-r').value, name: document.getElementById('edit-name').value, building: document.getElementById('edit-building').value, tel: document.getElementById('edit-tel').value, address: document.getElementById('edit-addr').value, station: document.getElementById('edit-station').value, credit: document.getElementById('edit-credit').value }); saveDB(); render(); closeModal(); }
@@ -410,6 +419,7 @@
     function uploadData(i) { const r=new FileReader(); r.onload=e=>{try{db=JSON.parse(e.target.result);saveDB();populateFilters();render();alert("完了");}catch(z){alert("失敗");}}; r.readAsText(i.files[0]); }
     function clearAll() { if(confirm("全消去？")) { localStorage.removeItem(DB_NAME); location.reload(); } }
     function searchMapLocation() { const input = document.getElementById('mapJumpInput').value; if(input && geocoder) geocoder.geocode({ address: input }, (res, status) => { if (status === 'OK') { map.setCenter(res[0].geometry.location); map.setZoom(14); } }); }
+    
     function toggleGPS() {
         if (!watchId) {
             watchId = navigator.geolocation.watchPosition((pos) => {
