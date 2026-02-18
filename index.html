@@ -33,16 +33,18 @@
             .right-section { padding-bottom: 120px; }
         }
 
-        /* ヘッダー：重なり防止 */
-        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; gap: 15px; }
-        h1 { font-family: var(--font-eng); font-size: 1.35rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        /* ヘッダー：重なり防止とスマホ最適化 */
+        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; gap: 10px; }
+        h1 { font-family: var(--font-eng); font-size: 1.3rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @media (max-width: 400px) { h1 { font-size: 1.1rem; } }
+
         .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); flex-shrink: 0; }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
 
         .search-box-style { display: flex; align-items: center; background: var(--card); border-radius: var(--radius); padding: 5px 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
         .search-input-style { flex: 1; border: none; padding: 10px; font-size: 0.95rem; background: transparent; outline: none; font-family: var(--font-serif); }
         .filter-area { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; text-align: center; cursor: pointer; appearance: none; -webkit-appearance: none; }
+        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; appearance: none; -webkit-appearance: none; text-align: center; cursor: pointer; }
 
         #google-map-view { width: 100%; height: 100%; }
         .btn-current-loc { position: absolute; bottom: 80px; right: 15px; z-index: 10; width: 44px; height: 44px; background: var(--card); border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -52,52 +54,61 @@
         .toggle-switch { position: relative; display: inline-block; width: 34px; height: 18px; } 
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ddd; transition: .4s; border-radius: 22px; }
-        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
         input:checked + .slider { background-color: var(--gold); }
         input:checked + .slider:before { transform: translateX(16px); }
 
         #stats-area { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow); }
-        .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
+        .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; gap: 10px; }
         .stats-total { font-family: var(--font-eng); font-weight: 600; font-size: 0.95rem; color: var(--text-main); white-space: nowrap; }
-        .limit-select { padding: 4px 10px; border-radius: var(--radius); border: 1px solid #ddd; font-size: 0.75rem; background: #fff; color: var(--text-sub); font-family: var(--font-serif); }
+        
+        /* 表示件数セレクト：スマホで伸びすぎないよう修正 */
+        .limit-select { width: auto !important; max-width: 140px; padding: 4px 10px; border-radius: var(--radius); border: 1px solid #ddd; font-size: 0.75rem; background: #fff; color: var(--text-sub); font-family: var(--font-serif); }
 
         .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; }
         .stats-item { font-size: 0.75rem; padding: 5px 12px; background: #f8f8f8; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: all 0.2s; color: var(--text-sub); }
         .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
+        .stats-count { font-weight: 600; margin-left: 5px; font-family: var(--font-eng); }
 
         .customer-item { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 15px; display: flex; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; }
-        .action-area { display: flex; flex-direction: column; gap: 8px; min-width: 100px; margin-left: 20px; }
+        .action-area { display: flex; flex-direction: column; gap: 8px; margin-left: 20px; min-width: 100px; }
         .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; line-height: 1.5; }
         .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
         .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
-        .credit-alert { color: var(--alert); font-weight: bold; }
+        .credit-alert { color: var(--alert); font-weight: bold; white-space: nowrap; flex-shrink: 0; }
         .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
         
-        /* COPYボタンのデザイン修正 */
+        /* COPYボタンのデザイン修正：タグに馴染ませる */
         .btn-copy { font-size: 0.65rem; background: #f2f2f2; border: 1px solid #ddd; padding: 2px 8px; border-radius: 3px; cursor: pointer; color: #666; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); vertical-align: middle; }
         .btn-copy:hover { border-color: var(--gold); color: var(--gold); background: #fff; }
 
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
-        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; animation: fadeIn 0.3s ease; }
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .modal-content h3 { font-family: var(--font-eng); text-align: center; margin-top: 0; font-weight: 600; letter-spacing: 0.1em; color: var(--text-main); margin-bottom: 25px; }
         
-        label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); }
+        label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); letter-spacing: 0.05em; }
+        
+        /* 【修正】インポート用ラベル：読みやすく、色も濃く */
+        .import-label { color: #555 !important; font-size: 0.85rem !important; line-height: 1.6; font-family: var(--font-serif) !important; margin-bottom: 10px; }
+
         input[type="text"], textarea, input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
-        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); }
+        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); transition: 0.3s; }
         
-        /* 保存・読込ボタンの横並び修正 */
+        /* 保存・読込ボタン：スマホでも崩れない横並び */
         .data-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn-sub { width: 100%; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); box-sizing: border-box; }
+        .btn-sub { width: 100%; padding: 10px 5px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); text-align: center; box-sizing: border-box; }
         .btn-sub:hover { border-color: var(--gold); color: var(--gold); }
 
-        /* 担当者名の色固定 */
+        /* 名前が金色にならないよう修正 */
         .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; }
 
+        /* 情報ウィンドウ（復元） */
         .info-window-container { font-family: var(--font-serif); padding: 0 5px 5px 0; max-width: 260px; max-height: 250px; overflow-y: auto; }
         .info-window-card { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .info-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; line-height: 1.3; color: var(--text-main); }
@@ -175,7 +186,7 @@
         </div>
         <div class="settings-section">
             <label style="color:var(--text-main); font-size:1rem; margin-bottom:15px;">📥 データ取り込み</label>
-            <label id="csv-label">現在担当 | 顧客No | 法人名 | 窓口店舗名 | 住所 | ビル名 | TEL | 与信</label>
+            <div id="csv-label" class="import-label">現在担当 | 顧客No | 法人名 | 窓口店舗名 | 住所 | ビル名 | TEL | 与信</div>
             <textarea id="csvInput" style="height:120px;" placeholder=""></textarea>
             <button class="btn-main" id="runBtn" onclick="processData()">取り込み実行</button>
             <div id="log-area" style="margin-top:10px; font-size:0.7rem; color:#999; text-align:center;"></div>
@@ -188,7 +199,7 @@
         </div>
         <div class="settings-section">
             <label>自分のピン (青)</label>
-            <div id="rep-checklist" class="rep-checklist" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>
+            <div id="rep-checklist" class="rep-checklist" style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;"></div>
         </div>
         <button class="btn-sub" style="width:100%; margin-top:20px;" onclick="document.getElementById('settingsModal').style.display='none'">閉じる</button>
     </div>
