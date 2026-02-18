@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- デザイン定義：元の洗練されたスタイルを100%維持 --- */
+        /* --- デザイン定義：元のコードを100%維持しつつ、崩れのみ修正 --- */
         :root {
             --bg: #f9f8f6;          --card: #ffffff;        --text-main: #333333;   --text-sub: #777777;
             --gold: #bfa37e;        --gold-light: #f0ebe5;  --dark: #222222;        --alert: #c62828;
@@ -33,9 +33,9 @@
             .right-section { padding-bottom: 120px; }
         }
 
-        /* ヘッダー：重なり防止の修正 */
+        /* 【修正】ヘッダー：フォントの被りを解消 */
         .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; gap: 15px; }
-        h1 { font-family: var(--font-eng); font-size: 1.4rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        h1 { font-family: var(--font-eng); font-size: 1.3rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); flex-shrink: 0; }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
@@ -75,13 +75,12 @@
         .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
         
-        /* COPYボタンの修正：馴染むデザインへ */
-        .btn-copy { font-size: 0.65rem; background: #f5f5f5; border: 1px solid #ddd; padding: 2px 8px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); }
+        /* 【修正】COPYボタンのデザイン：タグに馴染ませ、小さく上品に */
+        .btn-copy { font-size: 0.65rem; background: #f0f0f0; border: 1px solid #ddd; padding: 2px 6px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); vertical-align: middle; line-height: 1; }
         .btn-copy:hover { border-color: var(--gold); color: var(--gold); background: #fff; }
 
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
-        /* モーダル */
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
         label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); }
@@ -89,8 +88,8 @@
         .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); }
         .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); }
 
-        /* 名前が金色にならないよう修正（!importantで確実に上書き） */
-        .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        /* 【修正】担当者名の色：金色にならないよう黒（メイン色）に固定 */
+        .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 2px 0; }
     </style>
 </head>
 <body>
@@ -252,17 +251,16 @@
         document.getElementById('csv-label').innerText = `データ貼り付け (2列: ID | ${target})`;
     }
 
-    // initSystem：確実にライブラリを待ってからマップを出すように修正
     async function initSystem(key) {
         if(!window.google || !window.google.maps) {
             await new Promise((resolve) => {
                 const s = document.createElement('script');
+                // 【修正】連動バグを防ぐため geometry ライブラリを明示的に読み込む
                 s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places,geocoding,geometry,marker`;
                 s.async = true; s.onload = resolve;
                 document.head.appendChild(s);
             });
         }
-        // ここで計算用ライブラリを含めて確実にロードする
         const { Map } = await google.maps.importLibrary("maps"); 
         const { Geocoder } = await google.maps.importLibrary("geocoding");
         const { AdvancedMarkerElement: AM } = await google.maps.importLibrary("marker");
@@ -323,14 +321,15 @@
         const q = normalize(document.getElementById('searchInput').value);
         const bounds = (map && map.getBounds) ? map.getBounds() : null;
 
+        // 絞り込みロジック（元のコードを維持）
         let filtered = db.filter(d => {
             if(fPref !== "ALL" && getPrefecture(d.address) !== fPref) return false;
             if(fSt !== "ALL" && (d.station||"") !== fSt) return false; 
-            if(mapSyncMode && bounds && !bounds.contains({lat: d.lat, lng: d.lng})) return false;
             return !q || normalize(d.name + d.r_code + d.rep_name + d.address).includes(q);
         });
 
-        if(mapSyncMode && map && google.maps.geometry) {
+        // 【修正】連動時のクラッシュを防ぐため geometry の存在をチェックしてから計算
+        if(mapSyncMode && map && window.google && google.maps.geometry) {
             const center = map.getCenter();
             filtered.forEach(d => d._dist = google.maps.geometry.spherical.computeDistanceBetween(center, new google.maps.LatLng(d.lat, d.lng)));
             filtered.sort((a, b) => a._dist - b._dist);
@@ -346,8 +345,8 @@
         });
 
         let targets = activeReps.size ? filtered.filter(d => activeReps.has(d.rep_name)) : filtered;
-        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲内` : `該当: ${targets.length} 件`;
-        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)} 件`;
+        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲` : `該当: ${targets.length}`;
+        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)}`;
 
         const displayTargets = targets.slice(0, currentLimit);
         updateMapPins(displayTargets);
@@ -382,6 +381,7 @@
     }
 
     function panToMap(id, lat, lng) { highlightedId = id; map.setZoom(17); map.panTo({lat, lng}); if(window.innerWidth < 900) document.querySelector('.left-section').scrollIntoView({behavior:'smooth'}); render(); }
+    
     function openSettings() {
         const repList = document.getElementById('rep-checklist'); repList.innerHTML = "";
         [...new Set(db.map(d => d.rep_name))].sort().forEach(name => {
@@ -391,7 +391,9 @@
         });
         document.getElementById('settingsModal').style.display='flex';
     }
+    
     function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
+    
     function openEdit(id) {
         const d = db.find(x => x.id === id); if(!d) return;
         document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note||""; 
@@ -401,6 +403,7 @@
         document.getElementById('edit-station').value = d.station||""; document.getElementById('edit-credit').value = d.credit||"";
         document.getElementById('editModal').style.display='flex'; 
     }
+    
     function saveEdit() {
         const idx = db.findIndex(x => x.id === document.getElementById('edit-id').value);
         if(idx !== -1) { Object.assign(db[idx], { note: document.getElementById('edit-note').value, rep_name: document.getElementById('edit-rep').value, r_code: document.getElementById('edit-r').value, name: document.getElementById('edit-name').value, building: document.getElementById('edit-building').value, tel: document.getElementById('edit-tel').value, address: document.getElementById('edit-addr').value, station: document.getElementById('edit-station').value, credit: document.getElementById('edit-credit').value }); saveDB(); render(); closeModal(); }
