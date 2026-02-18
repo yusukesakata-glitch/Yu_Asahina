@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- デザイン定義：元のコードを100%維持しつつ、崩れのみ修正 --- */
+        /* --- デザイン定義：2番目のコードを100%維持 --- */
         :root {
             --bg: #f9f8f6;          --card: #ffffff;        --text-main: #333333;   --text-sub: #777777;
             --gold: #bfa37e;        --gold-light: #f0ebe5;  --dark: #222222;        --alert: #c62828;
@@ -33,9 +33,9 @@
             .right-section { padding-bottom: 120px; }
         }
 
-        /* 【修正】ヘッダー：フォントの被りを解消 */
+        /* 【修正】ヘッダー：タイトルの重なりを防止 */
         .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; gap: 15px; }
-        h1 { font-family: var(--font-eng); font-size: 1.3rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        h1 { font-family: var(--font-eng); font-size: 1.35rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); flex-shrink: 0; }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
@@ -72,11 +72,12 @@
         .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
+        .credit-alert { color: var(--alert); font-weight: bold; }
         .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
         
-        /* 【修正】COPYボタンのデザイン：タグに馴染ませ、小さく上品に */
-        .btn-copy { font-size: 0.65rem; background: #f0f0f0; border: 1px solid #ddd; padding: 2px 6px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); vertical-align: middle; line-height: 1; }
+        /* 【修正】COPYボタンのデザイン：チップに馴染むデザインへ */
+        .btn-copy { font-size: 0.65rem; background: #f0f0f0; border: 1px solid #ddd; padding: 2px 8px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); vertical-align: middle; }
         .btn-copy:hover { border-color: var(--gold); color: var(--gold); background: #fff; }
 
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
@@ -85,11 +86,11 @@
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
         label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); }
         input[type="text"], textarea, input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
-        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); }
+        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); transition: 0.3s; }
         .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); }
 
         /* 【修正】担当者名の色：金色にならないよう黒（メイン色）に固定 */
-        .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 2px 0; }
+        .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 3px 0; }
     </style>
 </head>
 <body>
@@ -255,7 +256,6 @@
         if(!window.google || !window.google.maps) {
             await new Promise((resolve) => {
                 const s = document.createElement('script');
-                // 【修正】連動バグを防ぐため geometry ライブラリを明示的に読み込む
                 s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places,geocoding,geometry,marker`;
                 s.async = true; s.onload = resolve;
                 document.head.appendChild(s);
@@ -321,14 +321,12 @@
         const q = normalize(document.getElementById('searchInput').value);
         const bounds = (map && map.getBounds) ? map.getBounds() : null;
 
-        // 絞り込みロジック（元のコードを維持）
         let filtered = db.filter(d => {
             if(fPref !== "ALL" && getPrefecture(d.address) !== fPref) return false;
             if(fSt !== "ALL" && (d.station||"") !== fSt) return false; 
             return !q || normalize(d.name + d.r_code + d.rep_name + d.address).includes(q);
         });
 
-        // 【修正】連動時のクラッシュを防ぐため geometry の存在をチェックしてから計算
         if(mapSyncMode && map && window.google && google.maps.geometry) {
             const center = map.getCenter();
             filtered.forEach(d => d._dist = google.maps.geometry.spherical.computeDistanceBetween(center, new google.maps.LatLng(d.lat, d.lng)));
@@ -345,8 +343,8 @@
         });
 
         let targets = activeReps.size ? filtered.filter(d => activeReps.has(d.rep_name)) : filtered;
-        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲` : `該当: ${targets.length}`;
-        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)}`;
+        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲内` : `該当: ${targets.length} 件`;
+        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)} 件`;
 
         const displayTargets = targets.slice(0, currentLimit);
         updateMapPins(displayTargets);
@@ -354,8 +352,10 @@
         displayTargets.forEach(c => {
             const isMe = targetReps.includes(c.rep_name);
             const color = isMe ? "#5d7ea3" : "#bf5b5b"; 
+            const buildHtml = c.building ? `<div class="info-sub">${c.building}</div>` : "";
+            const creditHtml = c.credit ? `<span class="credit-alert">【${c.credit}】</span>` : "";
             const div = document.createElement('div'); div.className = 'customer-item';
-            div.innerHTML = `<div style="flex:1;"><div class="info-main"><span class="status-dot" style="background:${color};"></span>${c.name}${c.credit ? `<span class="credit-alert">【${c.credit}】</span>` : ""}</div><div class="info-sub"><span class="tag tag-id">${c.r_code}</span>${c.rep_name}${c.station ? `<span class="tag" style="margin-left:8px;">${c.station}</span>` : ""}</div><div class="info-sub">${c.tel} <button class="btn-copy" onclick="copyToClipboard('${c.tel}')">COPY</button></div><div class="info-sub">${c.address}</div>${c.note ? `<div class="note-box">${c.note}</div>` : ""}</div><div class="action-area"><button onclick="openEdit('${c.id}')" class="action-btn">編集</button><a href="tel:${c.tel}" class="action-btn">発信</a><button onclick="panToMap('${c.id}', ${c.lat},${c.lng})" class="action-btn">地図</button></div>`;
+            div.innerHTML = `<div style="flex:1;"><div class="info-main"><span class="status-dot" style="background:${color};"></span>${c.name}${creditHtml}</div><div class="info-sub"><span class="tag tag-id">${c.r_code}</span>${c.rep_name}${c.station ? `<span class="tag" style="margin-left:8px;">${c.station}</span>` : ""}</div><div class="info-sub">${c.tel} <button class="btn-copy" onclick="copyToClipboard('${c.tel}')">COPY</button></div><div class="info-sub">${c.address}</div>${buildHtml}${c.note ? `<div class="note-box">${c.note}</div>` : ""}</div><div class="action-area"><button onclick="openEdit('${c.id}')" class="action-btn">編集</button><a href="tel:${c.tel}" class="action-btn">発信</a><button onclick="panToMap('${c.id}', ${c.lat},${c.lng})" class="action-btn">地図</button></div>`;
             area.appendChild(div);
         });
         document.getElementById('load-more-btn').style.display = (targets.length > currentLimit) ? 'block' : 'none';
@@ -364,16 +364,32 @@
     function updateMapPins(displayTargets) {
         if(!map || !AdvancedMarkerElement) return;
         markers.forEach(m => m.setMap(null)); markers = [];
+        
+        const grouped = {};
         displayTargets.forEach(c => {
-            const isMe = targetReps.includes(c.rep_name);
+            const key = `${c.lat.toFixed(6)},${c.lng.toFixed(6)}`;
+            if(!grouped[key]) grouped[key] = []; grouped[key].push(c);
+        });
+
+        Object.keys(grouped).forEach(key => {
+            const group = grouped[key];
+            const first = group[0];
+            const isMe = group.some(c => targetReps.includes(c.rep_name));
             const pinView = document.createElement("div"); pinView.style.width="16px"; pinView.style.height="16px";
-            pinView.style.backgroundColor = (c.id === highlightedId) ? "#FFD60A" : (isMe ? "#5d7ea3" : "#bf5b5b");
+            pinView.style.backgroundColor = group.some(c => c.id === highlightedId) ? "#FFD60A" : (isMe ? "#5d7ea3" : "#bf5b5b");
             pinView.style.borderRadius="50%"; pinView.style.border="2px solid white"; pinView.style.boxShadow="0 2px 5px rgba(0,0,0,0.2)";
-            const m = new AdvancedMarkerElement({ position: {lat:c.lat, lng:c.lng}, map: map, content: pinView });
+            const m = new AdvancedMarkerElement({ position: {lat:first.lat, lng:first.lng}, map: map, content: pinView });
             m.addListener("click", () => {
                 isPinClick=true; 
-                const telBtn = c.tel ? `<a href="tel:${c.tel}" class="info-tel">${c.tel}</a>` : "";
-                const html = `<div class="info-window-container"><div class="info-window-card"><div class="info-title">${c.name}</div><div class="info-meta">${c.rep_name} / ${c.r_code}</div>${telBtn}<div class="info-addr">${c.address}</div><button class="info-btn btn-edit-sm" onclick="openEdit('${c.id}')">編集</button></div></div>`;
+                let html = '<div class="info-window-container">';
+                group.forEach(c => {
+                    const telBtn = c.tel ? `<a href="tel:${c.tel}" class="info-tel">${c.tel}</a>` : "";
+                    const creditHtml = c.credit ? `<span style="color:#c62828; font-weight:bold; margin-left:4px;">【${c.credit}】</span>` : "";
+                    const build = c.building ? `<div style="font-size:0.8rem;color:#444;margin-bottom:2px;font-weight:bold;">${c.building}</div>` : "";
+                    const note = c.note ? `<div style="background:#fcf8e3;padding:4px;font-size:0.75rem;margin-bottom:4px;border-radius:2px;color:#8a6d3b;">${c.note}</div>` : "";
+                    html += `<div class="info-window-card"><div class="info-title">${c.name}${creditHtml}</div><div class="info-meta">${c.rep_name} / ${c.r_code}</div>${telBtn}${build}<div class="info-addr">${c.address}</div>${note}<button class="info-btn btn-edit-sm" onclick="openEdit('${c.id}')">編集</button></div>`;
+                });
+                html += '</div>';
                 infoWindow.setContent(html); infoWindow.open(map, m);
             });
             markers.push(m);
