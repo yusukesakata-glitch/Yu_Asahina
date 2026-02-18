@@ -33,68 +33,78 @@
             .right-section { padding-bottom: 120px; }
         }
 
-        /* 【修正】ヘッダー：フォントの被りを解消 */
+        /* 【修正】ヘッダー：フォントの重なり防止 */
         .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; gap: 15px; }
-        h1 { font-family: var(--font-eng); font-size: 1.35rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        h1 { font-family: var(--font-eng); font-size: 1.35rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); flex-shrink: 0; }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
 
+        .search-row { display: flex; gap: 10px; margin-bottom: 10px; }
         .search-box-style { display: flex; align-items: center; background: var(--card); border-radius: var(--radius); padding: 5px 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
         .search-input-style { flex: 1; border: none; padding: 10px; font-size: 0.95rem; background: transparent; outline: none; font-family: var(--font-serif); }
+        .search-btn-style { background: none; border: none; padding: 0 5px; color: var(--gold); cursor: pointer; display: flex; align-items: center; }
+
         .filter-area { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; text-align: center; cursor: pointer; appearance: none; -webkit-appearance: none; }
+        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; appearance: none; -webkit-appearance: none; text-align: center; cursor: pointer; }
 
         #google-map-view { width: 100%; height: 100%; }
-        .btn-current-loc { position: absolute; bottom: 80px; right: 15px; z-index: 10; width: 44px; height: 44px; background: var(--card); border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-current-loc { position: absolute; bottom: 80px; right: 15px; z-index: 10; width: 44px; height: 44px; background: var(--card); border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .btn-current-loc.locked { background: var(--gold); color: white; }
+        .btn-current-loc.unlocked { color: var(--gold); border: 1px solid var(--gold); }
         
         .map-sync-wrapper { position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(255, 255, 255, 0.95); padding: 4px 10px; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 0.75rem; color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); }
         .toggle-switch { position: relative; display: inline-block; width: 34px; height: 18px; } 
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ddd; transition: .4s; border-radius: 22px; }
-        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
         input:checked + .slider { background-color: var(--gold); }
         input:checked + .slider:before { transform: translateX(16px); }
 
         #stats-area { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow); }
         .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
-        .stats-total { font-family: var(--font-eng); font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
+        .stats-total { font-family: var(--font-eng); font-weight: 600; font-size: 0.95rem; color: var(--text-main); white-space: nowrap; }
+        .limit-select { padding: 4px 10px; border-radius: var(--radius); border: 1px solid #ddd; font-size: 0.75rem; background: #fff; color: var(--text-sub); font-family: var(--font-serif); }
+
         .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; }
         .stats-item { font-size: 0.75rem; padding: 5px 12px; background: #f8f8f8; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: all 0.2s; color: var(--text-sub); }
-        .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
+        .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 2px 6px rgba(191, 163, 126, 0.3); }
+        .stats-count { font-weight: 600; margin-left: 5px; font-family: var(--font-eng); }
 
         .customer-item { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 15px; display: flex; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; }
-        .action-area { display: flex; flex-direction: column; gap: 8px; min-width: 100px; margin-left: 20px; }
+        .customer-item:hover { transform: translateY(-2px); }
+        .action-area { display: flex; flex-direction: column; gap: 8px; margin-left: 20px; min-width: 100px; }
+        
         .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; line-height: 1.5; }
         .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
         .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
-        .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
+        .credit-alert { color: var(--alert); font-weight: bold; white-space: nowrap; flex-shrink: 0; }
+        .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; letter-spacing: 0.05em; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
         
         /* 【修正】COPYボタン：タグに馴染む清潔感のあるデザインへ */
-        .btn-copy { font-size: 0.65rem; background: #f2f2f2; border: 1px solid #eee; padding: 2px 8px; border-radius: 3px; cursor: pointer; color: #666; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); vertical-align: middle; line-height: 1.2; }
+        .btn-copy { font-size: 0.65rem; background: #f2f2f2; border: 1px solid #ddd; padding: 2px 8px; border-radius: 3px; cursor: pointer; color: #666; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); vertical-align: middle; }
         .btn-copy:hover { border-color: var(--gold); color: var(--gold); background: #fff; }
 
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
-        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; animation: fadeIn 0.3s ease; }
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-        label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); }
+        .modal-content h3 { font-family: var(--font-eng); text-align: center; margin-top: 0; font-weight: 600; letter-spacing: 0.1em; color: var(--text-main); margin-bottom: 25px; }
+        
+        label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); letter-spacing: 0.05em; }
         input[type="text"], textarea, input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
-        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); }
-        .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); }
+        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); transition: 0.3s; }
+        .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); transition: 0.3s; }
 
-        /* 【修正】名前が金色にならないよう黒（メイン色）に固定 */
+        /* 【修正】担当者名の色：金色にならないよう黒に固定 */
         .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; }
 
-        /* 情報ウィンドウ用スタイル */
         .info-window-container { font-family: var(--font-serif); padding: 0 5px 5px 0; max-width: 260px; max-height: 250px; overflow-y: auto; }
         .info-window-card { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .info-window-card:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         .info-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; line-height: 1.3; color: var(--text-main); }
         .info-meta { font-size: 0.75rem; color: #777; margin-bottom: 6px; background: #f9f9f9; padding: 2px 6px; border-radius: 2px; display: inline-block;}
         .info-tel { font-weight: 500; color: var(--gold); font-size: 0.9rem; text-decoration: none; margin-bottom: 4px; display: block; font-family: var(--font-eng);}
@@ -142,8 +152,10 @@
         <div id="stats-area">
             <div class="stats-header">
                 <div class="stats-total" id="stats-total-text">-- 件</div>
-                <select id="limitSelect" onchange="changeLimit()" style="width:auto; padding:4px; font-size:0.75rem;">
+                <select id="limitSelect" class="limit-select" onchange="changeLimit()">
                     <option value="100">表示: 100件</option>
+                    <option value="300">表示: 300件</option>
+                    <option value="500">表示: 500件</option>
                     <option value="ALL">表示: 全件</option>
                 </select>
             </div>
@@ -296,7 +308,7 @@
 
             if(mode === 'new') {
                 if(cols.length < 5) continue; 
-                // 8列：担当(0)|ID(1)|法人(2)|店名(3)|住所(4)|ビル(5)|TEL(6)|与信(7)
+                // 【修正】8列順：0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
                 let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + (cols[3]||"")).trim();
                 let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
 
@@ -375,7 +387,7 @@
         markers.forEach(m => m.setMap(null)); markers = [];
         
         let pinsToShow = displayTargets;
-        // 地図連動モード時の挙動（2番目のコードを維持）
+        // 地図連動モード時の挙動（2番目のコードを100%維持）
         if (mapSyncMode && map) {
             const fPref = document.getElementById('prefFilter').value;
             const fSt = document.getElementById('stationFilter').value;
@@ -412,6 +424,7 @@
                 isPinClick=true; 
                 let html = '<div class="info-window-container">';
                 group.forEach(c => {
+                    // 【修正】📞絵文字のみ削除
                     const telBtn = c.tel ? `<a href="tel:${c.tel}" class="info-tel">${c.tel}</a>` : "";
                     const creditHtml = c.credit ? `<span style="color:#c62828; font-weight:bold; margin-left:4px;">【${c.credit}】</span>` : "";
                     const build = c.building ? `<div style="font-size:0.8rem;color:#444;margin-bottom:2px;font-weight:bold;">${c.building}</div>` : "";
@@ -426,7 +439,6 @@
     }
 
     function panToMap(id, lat, lng) { highlightedId = id; map.setZoom(17); map.panTo({lat, lng}); if(window.innerWidth < 900) document.querySelector('.left-section').scrollIntoView({behavior:'smooth'}); render(); }
-    
     function openSettings() {
         const repList = document.getElementById('rep-checklist'); repList.innerHTML = "";
         [...new Set(db.map(d => d.rep_name))].sort().forEach(name => {
@@ -436,9 +448,7 @@
         });
         document.getElementById('settingsModal').style.display='flex';
     }
-    
     function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
-    
     function openEdit(id) {
         const d = db.find(x => x.id === id); if(!d) return;
         document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note||""; 
@@ -448,7 +458,6 @@
         document.getElementById('edit-station').value = d.station||""; document.getElementById('edit-credit').value = d.credit||"";
         document.getElementById('editModal').style.display='flex'; 
     }
-    
     function saveEdit() {
         const idx = db.findIndex(x => x.id === document.getElementById('edit-id').value);
         if(idx !== -1) { Object.assign(db[idx], { note: document.getElementById('edit-note').value, rep_name: document.getElementById('edit-rep').value, r_code: document.getElementById('edit-r').value, name: document.getElementById('edit-name').value, building: document.getElementById('edit-building').value, tel: document.getElementById('edit-tel').value, address: document.getElementById('edit-addr').value, station: document.getElementById('edit-station').value, credit: document.getElementById('edit-credit').value }); saveDB(); render(); closeModal(); }
@@ -462,14 +471,22 @@
     function onPrefChange() { render(); }
     function getPrefecture(a) { const m=a.match(/(...??[都道府県])/); return m?m[1]:"その他"; }
     function toggleMapSync() { mapSyncMode = document.getElementById('mapSyncToggle').checked; if(mapSyncMode) render(); }
-    function changeLimit() { currentLimit = document.getElementById('limitSelect').value === 'ALL' ? 99999 : 100; render(); }
-    function loadMore() { currentLimit += 100; render(); }
+    function changeLimit() {
+        const val = document.getElementById('limitSelect').value;
+        currentLimit = (val === 'ALL') ? 99999 : parseInt(val);
+        render();
+    }
+    function loadMore() {
+        const val = document.getElementById('limitSelect').value;
+        const step = (val === 'ALL') ? 100 : parseInt(val);
+        currentLimit += step; 
+        render();
+    }
     function resetAndRender() { render(); }
     function shareOrDownload() { const b = new Blob([JSON.stringify(db)], {type: 'application/json'}); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `map_data.json`; a.click(); }
     function uploadData(i) { const r=new FileReader(); r.onload=e=>{try{db=JSON.parse(e.target.result);saveDB();populateFilters();render();alert("完了");}catch(z){alert("失敗");}}; r.readAsText(i.files[0]); }
     function clearAll() { if(confirm("全消去？")) { localStorage.removeItem(DB_NAME); location.reload(); } }
     function searchMapLocation() { const input = document.getElementById('mapJumpInput').value; if(input && geocoder) geocoder.geocode({ address: input }, (res, status) => { if (status === 'OK') { map.setCenter(res[0].geometry.location); map.setZoom(14); } }); }
-    
     function toggleGPS() {
         if (!watchId) {
             watchId = navigator.geolocation.watchPosition((pos) => {
