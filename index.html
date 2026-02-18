@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- デザイン定義：元のコードを完全維持 --- */
+        /* --- デザイン定義：元の洗練されたスタイルを100%維持 --- */
         :root {
             --bg: #f9f8f6;          --card: #ffffff;        --text-main: #333333;   --text-sub: #777777;
             --gold: #bfa37e;        --gold-light: #f0ebe5;  --dark: #222222;        --alert: #c62828;
@@ -33,9 +33,11 @@
             .right-section { padding-bottom: 120px; }
         }
 
-        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        h1 { font-family: var(--font-eng); font-size: 1.4rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); }
-        .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        /* ヘッダー：重なり防止の修正 */
+        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; gap: 15px; }
+        h1 { font-family: var(--font-eng); font-size: 1.4rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); flex-shrink: 0; }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
 
         .search-box-style { display: flex; align-items: center; background: var(--card); border-radius: var(--radius); padding: 5px 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
@@ -73,9 +75,9 @@
         .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
         
-        /* COPYボタンの修正 */
-        .btn-copy { font-size: 0.65rem; background: #f5f5f5; border: 1px solid #ddd; padding: 2px 6px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; }
-        .btn-copy:hover { border-color: var(--gold); color: var(--gold); }
+        /* COPYボタンの修正：馴染むデザインへ */
+        .btn-copy { font-size: 0.65rem; background: #f5f5f5; border: 1px solid #ddd; padding: 2px 8px; border-radius: 3px; cursor: pointer; color: #888; margin-left: 8px; transition: 0.3s; font-family: var(--font-serif); }
+        .btn-copy:hover { border-color: var(--gold); color: var(--gold); background: #fff; }
 
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
@@ -87,7 +89,7 @@
         .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); }
         .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); }
 
-        /* 名前が金色にならないよう修正 */
+        /* 名前が金色にならないよう修正（!importantで確実に上書き） */
         .rep-checklist label { color: var(--text-main) !important; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; }
     </style>
 </head>
@@ -140,7 +142,7 @@
             <div class="stats-grid" id="stats-detail"></div>
         </div>
         <div id="result-area"></div>
-        <button id="load-more-btn" style="display:none; width:100%; padding:12px; background:none; border:1px solid var(--gold); color:var(--gold); border-radius:30px; cursor:pointer; margin-top:20px;" onclick="loadMore()">もっと見る</button>
+        <button id="load-more-btn" style="display:none; width:100%; padding:12px; border:1px solid var(--gold); color:var(--gold); background:none; border-radius:30px; cursor:pointer; margin-top:20px;" onclick="loadMore()">もっと見る</button>
         <div style="height:80px;"></div>
     </div>
 </div>
@@ -250,6 +252,7 @@
         document.getElementById('csv-label').innerText = `データ貼り付け (2列: ID | ${target})`;
     }
 
+    // initSystem：確実にライブラリを待ってからマップを出すように修正
     async function initSystem(key) {
         if(!window.google || !window.google.maps) {
             await new Promise((resolve) => {
@@ -259,12 +262,15 @@
                 document.head.appendChild(s);
             });
         }
+        // ここで計算用ライブラリを含めて確実にロードする
         const { Map } = await google.maps.importLibrary("maps"); 
         const { Geocoder } = await google.maps.importLibrary("geocoding");
         const { AdvancedMarkerElement: AM } = await google.maps.importLibrary("marker");
+        
         geocoder = new Geocoder(); AdvancedMarkerElement = AM;
         map = new Map(document.getElementById('google-map-view'), { center:{lat:35.68, lng:139.76}, zoom:13, mapId: "DEMO_MAP_ID", mapTypeControl: false, streetViewControl: false });
         infoWindow = new google.maps.InfoWindow();
+        
         map.addListener('idle', () => { if(!isPinClick && mapSyncMode) render(); isPinClick=false; });
         document.getElementById('map-placeholder-msg').style.display='none';
         render();
@@ -283,7 +289,7 @@
 
             if(mode === 'new') {
                 if(cols.length < 5) continue; 
-                // 8列順：0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
+                // 8列：担当|ID|法人|店名|住所|ビル|TEL|与信
                 let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + (cols[3]||"")).trim();
                 let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
 
@@ -315,7 +321,7 @@
         const fPref = document.getElementById('prefFilter').value;
         const fSt = document.getElementById('stationFilter').value; 
         const q = normalize(document.getElementById('searchInput').value);
-        const bounds = map ? map.getBounds() : null;
+        const bounds = (map && map.getBounds) ? map.getBounds() : null;
 
         let filtered = db.filter(d => {
             if(fPref !== "ALL" && getPrefecture(d.address) !== fPref) return false;
@@ -324,7 +330,7 @@
             return !q || normalize(d.name + d.r_code + d.rep_name + d.address).includes(q);
         });
 
-        if(mapSyncMode && map) {
+        if(mapSyncMode && map && google.maps.geometry) {
             const center = map.getCenter();
             filtered.forEach(d => d._dist = google.maps.geometry.spherical.computeDistanceBetween(center, new google.maps.LatLng(d.lat, d.lng)));
             filtered.sort((a, b) => a._dist - b._dist);
@@ -340,8 +346,8 @@
         });
 
         let targets = activeReps.size ? filtered.filter(d => activeReps.has(d.rep_name)) : filtered;
-        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲` : `該当: ${targets.length}`;
-        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)}`;
+        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲内` : `該当: ${targets.length} 件`;
+        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)} 件`;
 
         const displayTargets = targets.slice(0, currentLimit);
         updateMapPins(displayTargets);
@@ -376,7 +382,6 @@
     }
 
     function panToMap(id, lat, lng) { highlightedId = id; map.setZoom(17); map.panTo({lat, lng}); if(window.innerWidth < 900) document.querySelector('.left-section').scrollIntoView({behavior:'smooth'}); render(); }
-    
     function openSettings() {
         const repList = document.getElementById('rep-checklist'); repList.innerHTML = "";
         [...new Set(db.map(d => d.rep_name))].sort().forEach(name => {
@@ -386,9 +391,7 @@
         });
         document.getElementById('settingsModal').style.display='flex';
     }
-    
     function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
-    
     function openEdit(id) {
         const d = db.find(x => x.id === id); if(!d) return;
         document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note||""; 
@@ -398,7 +401,6 @@
         document.getElementById('edit-station').value = d.station||""; document.getElementById('edit-credit').value = d.credit||"";
         document.getElementById('editModal').style.display='flex'; 
     }
-    
     function saveEdit() {
         const idx = db.findIndex(x => x.id === document.getElementById('edit-id').value);
         if(idx !== -1) { Object.assign(db[idx], { note: document.getElementById('edit-note').value, rep_name: document.getElementById('edit-rep').value, r_code: document.getElementById('edit-r').value, name: document.getElementById('edit-name').value, building: document.getElementById('edit-building').value, tel: document.getElementById('edit-tel').value, address: document.getElementById('edit-addr').value, station: document.getElementById('edit-station').value, credit: document.getElementById('edit-credit').value }); saveDB(); render(); closeModal(); }
