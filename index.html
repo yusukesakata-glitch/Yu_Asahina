@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- デザイン定義：正解コードを100%維持 --- */
+        /* --- デザイン定義（100%維持） --- */
         :root {
             --bg: #f9f8f6;          --card: #ffffff;        --text-main: #333333;   --text-sub: #777777;
             --gold: #bfa37e;        --gold-light: #f0ebe5;  --dark: #222222;        --alert: #c62828;
@@ -37,15 +37,22 @@
         h1 { font-family: var(--font-eng); font-size: 1.4rem; font-weight: 600; margin: 0; letter-spacing: 0.05em; color: var(--text-main); }
         .btn-settings { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius); font-family: var(--font-serif); font-size: 0.85rem; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .btn-settings:hover { border-color: var(--gold); color: var(--gold); }
+
+        .search-row { display: flex; gap: 10px; margin-bottom: 10px; }
         .search-box-style { display: flex; align-items: center; background: var(--card); border-radius: var(--radius); padding: 5px 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
         .search-input-style { flex: 1; border: none; padding: 10px; font-size: 0.95rem; background: transparent; outline: none; font-family: var(--font-serif); }
+        .search-btn-style { background: none; border: none; padding: 0 5px; color: var(--gold); cursor: pointer; display: flex; align-items: center; }
+
         .filter-area { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; text-align: center; cursor: pointer; appearance: none; -webkit-appearance: none; }
+        select { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text-main); font-family: var(--font-serif); font-size: 0.85rem; appearance: none; -webkit-appearance: none; text-align: center; cursor: pointer; }
+
         #google-map-view { width: 100%; height: 100%; }
         .btn-current-loc { position: absolute; bottom: 80px; right: 15px; z-index: 10; width: 44px; height: 44px; background: var(--card); border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .btn-current-loc.locked { background: var(--gold); color: white; }
+        .btn-current-loc.unlocked { color: var(--gold); border: 1px solid var(--gold); }
+        
         .map-sync-wrapper { position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(255, 255, 255, 0.95); padding: 4px 10px; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 0.75rem; color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); }
-        .toggle-switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+        .toggle-switch { position: relative; display: inline-block; width: 34px; height: 18px; } 
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ddd; transition: .4s; border-radius: 22px; }
         .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
@@ -58,51 +65,25 @@
         .stats-grid { display: flex; flex-wrap: wrap; gap: 8px; }
         .stats-item { font-size: 0.75rem; padding: 5px 12px; background: #f8f8f8; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: all 0.2s; color: var(--text-sub); }
         .stats-item.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
-        .stats-count { font-weight: 600; margin-left: 5px; font-family: var(--font-eng); }
 
         .customer-item { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 15px; display: flex; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.2s; }
-        .customer-item:hover { transform: translateY(-2px); }
-        .action-area { display: flex; flex-direction: column; gap: 8px; min-width: 100px; margin-left: 20px; }
         .action-btn { width: 100%; padding: 8px; border-radius: 4px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.75rem; transition: all 0.3s; color: var(--text-sub); cursor: pointer; font-family: var(--font-eng); box-sizing: border-box; line-height: 1.5; }
         .action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
         .info-main { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap; column-gap: 8px; row-gap: 4px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .info-sub { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
-        .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; letter-spacing: 0.05em; border: 1px solid #eee; }
+        .credit-alert { color: var(--alert); font-weight: bold; }
+        .tag { background: #f2f2f2; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; color: #666; border: 1px solid #eee; }
         .tag-id { background: var(--gold-light); color: #5a4b35; border-color: #e0d5c5; }
-        .btn-copy { font-size: 0.65rem; background: transparent; border: 1px solid #ddd; padding: 1px 6px; border-radius: 3px; cursor: pointer; color: #999; margin-left: 8px; transition: 0.3s; }
         .note-box { font-size: 0.75rem; color: #8a6d3b; margin-top: 8px; background: #fcf8e3; padding: 6px 10px; border-radius: 4px; display: inline-block; }
 
-        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; animation: fadeIn 0.3s ease; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(44, 44, 44, 0.7); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
         .modal-content { background: #fff; padding: 30px; border-radius: 4px; width: 95%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-        .modal-content h3 { font-family: var(--font-eng); text-align: center; margin-top: 0; font-weight: 600; letter-spacing: 0.1em; color: var(--text-main); margin-bottom: 25px; }
-
-        label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); letter-spacing: 0.05em; }
+        label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; margin-top: 15px; font-family: var(--font-eng); }
         input[type="text"], textarea, input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--radius); box-sizing: border-box; font-size: 16px; font-family: var(--font-serif); }
-        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); letter-spacing: 0.1em; transition: 0.3s; }
-        .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); transition: 0.3s; }
-
-        /* 名前が金色にならないよう修正 */
-        .rep-checklist { max-height: 150px; overflow-y: auto; display: block; margin-top: 10px; }
-        .rep-checklist label { display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: 500; padding: 4px 0; cursor: pointer; margin: 0; }
-
-        .quick-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .chip { font-size: 0.75rem; background: #fff; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid #ddd; color: var(--text-sub); transition: 0.3s; }
-
-        /* 進捗バー */
-        .prog-wrap { width: 100%; background: #eee; height: 3px; border-radius: 2px; margin-top: 15px; overflow: hidden; display: none; }
-        #prog-bar { width: 0%; height: 100%; background: var(--gold); transition: 0.3s; }
-
-        #map-placeholder-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 30px; border-radius: var(--radius); font-weight: 500; text-align: center; width: 80%; box-shadow: var(--shadow); font-family: var(--font-serif); border: 1px solid #eee; z-index: 5; }
-
-        .info-window-container { font-family: var(--font-serif); padding: 0 5px 5px 0; max-width: 260px; max-height: 250px; overflow-y: auto; }
-        .info-window-card { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .info-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; line-height: 1.3; color: var(--text-main); }
-        .info-meta { font-size: 0.75rem; color: #777; margin-bottom: 6px; background: #f9f9f9; padding: 2px 6px; border-radius: 2px; display: inline-block;}
-        .info-tel { font-weight: 500; color: var(--gold); font-size: 0.9rem; text-decoration: none; margin-bottom: 4px; display: block; font-family: var(--font-eng);}
-        .info-addr { font-size: 0.75rem; color: #666; margin-bottom: 6px; line-height: 1.4;}
-        .btn-edit-sm { background: #f0f0f0; color: #333; flex: 1; padding: 8px; border-radius: 2px; text-align: center; font-size: 0.75rem; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-main { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius); font-weight: 500; cursor: pointer; margin-top: 20px; font-family: var(--font-eng); transition: 0.3s; }
+        .btn-sub { padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-family: var(--font-serif); }
     </style>
 </head>
 <body>
@@ -144,8 +125,8 @@
         </div>
         <div id="stats-area">
             <div class="stats-header">
-                <div id="stats-total-text" class="stats-total">-- 件</div>
-                <select id="limitSelect" onchange="changeLimit()" style="width:auto; padding:4px; font-family:var(--font-serif); font-size:0.75rem;">
+                <div class="stats-total" id="stats-total-text">-- 件</div>
+                <select id="limitSelect" class="limit-select" onchange="changeLimit()" style="padding:4px; font-size:0.75rem;">
                     <option value="100">表示: 100件</option>
                     <option value="ALL">表示: 全件</option>
                 </select>
@@ -154,7 +135,7 @@
             <div class="stats-grid" id="stats-detail"></div>
         </div>
         <div id="result-area"></div>
-        <button id="load-more-btn" style="display:none; width:100%; padding:12px; background:none; border:1px solid var(--gold); color:var(--gold); border-radius:30px; cursor:pointer; font-family:var(--font-eng); margin-top:20px;" onclick="loadMore()">LOAD MORE</button>
+        <button id="load-more-btn" style="display:none; width:100%; padding:12px; border:1px solid var(--gold); color:var(--gold); background:none; border-radius:30px; cursor:pointer; margin-top:20px;" onclick="loadMore()">もっと見る</button>
         <div style="height:80px;"></div>
     </div>
 </div>
@@ -165,41 +146,41 @@
         <div class="settings-section">
             <label>Google Maps APIキー</label>
             <div style="display:flex; gap:10px;">
-                <input type="password" id="apiKey" placeholder="AIzaSy..." style="flex:1;">
-                <button onclick="saveKeyAndInit()" style="background:var(--dark); color:#fff; border:none; border-radius:2px; padding:0 15px; cursor:pointer;">保存</button>
+                <input type="password" id="apiKey" placeholder="AIzaSy...">
+                <button onclick="saveKeyAndInit()" style="background:var(--dark); color:#fff; padding:0 15px; border:none; border-radius:2px; cursor:pointer;">保存</button>
             </div>
         </div>
         <div class="settings-section">
-            <label style="color:var(--text-main); font-size:1rem; margin-bottom:15px;">データ取り込み</label>
-            <div style="font-size:0.7rem; color:var(--text-sub); margin-bottom:8px;">
-                順序: 現在担当 | 顧客No | 法人名 | 窓口店舗名 | 住所 | ビル名 | TEL | 与信
+            <label style="color:var(--text-main); font-size:1rem; margin-bottom:15px;">📥 データ取り込み</label>
+            <div class="mode-switch" style="display:flex; gap:15px; margin-bottom:15px;">
+                <label><input type="radio" name="regMode" value="new" checked onchange="changeRegMode()"> 一括取り込み</label>
+                <label><input type="radio" name="regMode" value="update" onchange="changeRegMode()"> 部分更新</label>
             </div>
-            <textarea id="csvInput" style="height:120px;" placeholder=""></textarea>
+            <div id="update-options" style="display:none; margin-bottom:15px;">
+                <label>更新項目</label>
+                <select id="updateTarget" onchange="updatePlaceholder()">
+                    <option value="credit">与信</option>
+                    <option value="station">最寄り駅</option>
+                    <option value="tel">電話番号</option>
+                    <option value="note">メモ</option>
+                </select>
+            </div>
+            <label id="csv-label">データ貼り付け</label>
+            <textarea id="csvInput" style="height:120px;"></textarea>
             <button class="btn-main" id="runBtn" onclick="processData()">取り込み実行</button>
-            
-            <div class="prog-wrap" id="prog-wrap"><div id="prog-bar"></div></div>
-            <div id="log-area" style="text-align:center; font-size:0.7rem; color:var(--gold); margin-top:5px;"></div>
-
+            <div id="log-area" style="margin-top:10px; font-size:0.7rem; color:#999; text-align:center;"></div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px;">
                 <button class="btn-sub" onclick="shareOrDownload()">保存 (JSON)</button>
                 <button class="btn-sub" onclick="document.getElementById('fileInput').click()">読込 (JSON)</button>
                 <input type="file" id="fileInput" accept=".json" style="display:none" onchange="uploadData(this)">
             </div>
-            <button class="btn-del" onclick="clearAll()" style="width:100%; margin-top:15px; background:none; border:1px solid #eee; color:#999; cursor:pointer; padding:10px;">全データ削除</button>
+            <button class="btn-del" onclick="clearAll()" style="width:100%; margin-top:20px; border:1px solid #eee; color:#999; padding:10px; cursor:pointer; background:none;">全データ削除</button>
         </div>
         <div class="settings-section">
             <label>自分のピン (青)</label>
-            <div id="rep-checklist" class="rep-checklist"></div>
+            <div id="rep-checklist" class="rep-checklist" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>
         </div>
-        <div class="settings-section">
-            <label>定型文 (チップ)</label>
-            <div id="settings-chip-list" class="quick-chips"></div>
-        </div>
-        <div class="settings-section">
-            <label>ストレージ状況</label>
-            <div style="font-size:0.8rem;">現在のDB: <span id="current-db-name" style="font-weight:600;"></span></div>
-        </div>
-        <button class="btn-sub" style="width:100%; background:#f5f5f5; border:none;" onclick="document.getElementById('settingsModal').style.display='none'">閉じる</button>
+        <button class="btn-sub" style="width:100%; margin-top:20px;" onclick="document.getElementById('settingsModal').style.display='none'">閉じる</button>
     </div>
 </div>
 
@@ -207,9 +188,8 @@
     <div class="modal-content">
         <h3>情報編集</h3>
         <input type="hidden" id="edit-id"><input type="hidden" id="orig-addr">
-        <label>メモ</label><textarea id="edit-note" style="height:80px;"></textarea>
-        <div id="edit-chip-area" class="quick-chips" style="margin-bottom:15px;"></div>
-        <label>与信</label><input type="text" id="edit-credit" style="color:var(--alert); font-weight:bold;">
+        <label>メモ</label><textarea id="edit-note"></textarea>
+        <label>与信</label><input type="text" id="edit-credit">
         <label>最寄り駅</label><input type="text" id="edit-station">
         <label>担当者</label><input type="text" id="edit-rep">
         <label>管理ID</label><input type="text" id="edit-r">
@@ -239,19 +219,37 @@
         const k = localStorage.getItem('map_apiKey');
         const d = localStorage.getItem(DB_NAME);
         const tr = localStorage.getItem('map_target_reps_json');
-        const qc = localStorage.getItem('map_quick_chips_json');
         if(tr) try { targetReps = JSON.parse(tr); } catch(e) {}
-        if(qc) try { quickChips = JSON.parse(qc); } catch(e) {}
         if(d) try { db = JSON.parse(d); populateFilters(); render(); } catch(e){ db=[]; }
         if(k) { document.getElementById('apiKey').value = k; initSystem(k); }
-        document.getElementById('current-db-name').innerText = DB_NAME;
+        changeRegMode();
     };
+
+    function changeRegMode() {
+        const mode = document.querySelector('input[name="regMode"]:checked').value;
+        const updateOptions = document.getElementById('update-options');
+        const label = document.getElementById('csv-label');
+        const input = document.getElementById('csvInput');
+        if(mode === 'new') {
+            updateOptions.style.display = 'none';
+            label.innerText = "データ貼り付け (8列: 担当|ID|法人|店名|住所|ビル|TEL|与信)";
+            input.placeholder = "佐藤\tR001\t(株)ABC\t新宿店\t東京都...\tビル3F\t03-...\t前金";
+        } else {
+            updateOptions.style.display = 'block';
+            updatePlaceholder();
+        }
+    }
+
+    function updatePlaceholder() {
+        const target = document.getElementById('updateTarget').value;
+        document.getElementById('csv-label').innerText = `データ貼り付け (2列: ID | ${target})`;
+    }
 
     async function initSystem(key) {
         if(!window.google || !window.google.maps) {
             await new Promise((resolve) => {
                 const s = document.createElement('script');
-                s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places,geocoding,marker,geometry`;
+                s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places,geocoding,geometry,marker`;
                 s.async = true; s.onload = resolve;
                 document.head.appendChild(s);
             });
@@ -268,42 +266,43 @@
     }
 
     async function processData() {
+        const mode = document.querySelector('input[name="regMode"]:checked').value;
         const csv = document.getElementById('csvInput').value.trim(); 
         if(!csv) return alert('データを貼り付けてください');
         const btn = document.getElementById('runBtn'); btn.disabled = true; btn.innerText = "処理中...";
-        const progWrap = document.getElementById('prog-wrap'); const progBar = document.getElementById('prog-bar');
-        progWrap.style.display = 'block'; 
         const lines = csv.split('\n'); let count = 0; let updateCount = 0;
 
-        for(let i = 0; i < lines.length; i++) {
-            const cols = lines[i].trim().split(/\t/).map(s=>s.trim());
-            if(cols.length < 5) continue; 
-            
-            // 8列順：0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
-            let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + (cols[3]||"")).trim();
-            let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
+        for(let line of lines) {
+            const cols = line.trim().split(/\t/).map(s=>s.trim());
+            if(cols.length < 2) continue;
 
-            const existing = db.find(d => d.r_code === r);
-            if (existing) {
-                existing.rep_name = rep; existing.name = name; existing.address = addr;
-                existing.building = build; existing.tel = tel; existing.credit = credit;
-                updateCount++;
+            if(mode === 'new') {
+                if(cols.length < 5) continue; 
+                // 8列順：0担当 | 1ID | 2法人 | 3店名 | 4住所 | 5ビル | 6TEL | 7与信
+                let rep = cols[0]; let r = cols[1]; let name = (cols[2] + " " + (cols[3]||"")).trim();
+                let addr = cols[4]; let build = cols[5]||""; let tel = cols[6]||""; let credit = cols[7]||"";
+
+                const existing = db.find(d => d.r_code === r);
+                if (existing) {
+                    Object.assign(existing, { rep_name: rep, name: name, address: addr, building: build, tel: tel, credit: credit });
+                    updateCount++;
+                } else {
+                    try {
+                        const coords = await new Promise((res, rej) => geocoder.geocode({ address: addr }, (r, s) => s==='OK'?res({lat: r[0].geometry.location.lat(), lng: r[0].geometry.location.lng()}):rej(s)));
+                        db.push({ id: Math.random().toString(36).substr(2, 9), r_code: r, rep_name: rep, name: name, building: build, address: addr, tel: tel, lat: coords.lat, lng: coords.lng, note: "", station: "", credit: credit });
+                        count++;
+                    } catch(e) {}
+                    await new Promise(r => setTimeout(r, 400));
+                }
             } else {
-                try {
-                    const coords = await new Promise((res, rej) => geocoder.geocode({ address: addr }, (r, s) => s==='OK'?res({lat: r[0].geometry.location.lat(), lng: r[0].geometry.location.lng()}):rej(s)));
-                    db.push({ id: Math.random().toString(36).substr(2, 9), r_code: r, rep_name: rep, name: name, building: build, address: addr, tel: tel, lat: coords.lat, lng: coords.lng, note: "", station: "", credit: credit });
-                    count++;
-                } catch(e) {}
-                await new Promise(r => setTimeout(r, 450));
+                const targetField = document.getElementById('updateTarget').value;
+                const target = db.find(d => d.r_code === cols[0]);
+                if(target) { target[targetField] = cols[1]; updateCount++; }
             }
-            if (i % 5 === 0 || i === lines.length - 1) {
-                const percent = Math.round(((i + 1) / lines.length) * 100);
-                progBar.style.width = percent + '%';
-                log(`${i+1} / ${lines.length} 件目`);
-            }
+            log(`処理中... 新規:${count} 更新:${updateCount}`);
         }
         saveDB(); populateFilters(); render(); alert(`完了: 新規 ${count} / 更新 ${updateCount}`);
-        btn.disabled = false; btn.innerText = "取り込み実行"; progWrap.style.display = 'none'; log("");
+        btn.disabled = false; btn.innerText = "取り込み実行"; log("");
     }
 
     function render() {
@@ -311,13 +310,11 @@
         const fPref = document.getElementById('prefFilter').value;
         const fSt = document.getElementById('stationFilter').value; 
         const q = normalize(document.getElementById('searchInput').value);
-
         const bounds = map ? map.getBounds() : null;
 
         let filtered = db.filter(d => {
             if(fPref !== "ALL" && getPrefecture(d.address) !== fPref) return false;
             if(fSt !== "ALL" && (d.station||"") !== fSt) return false; 
-            // 地図連動フィルタ
             if(mapSyncMode && bounds && !bounds.contains({lat: d.lat, lng: d.lng})) return false;
             return !q || normalize(d.name + d.r_code + d.rep_name + d.address).includes(q);
         });
@@ -338,14 +335,15 @@
         });
 
         let targets = activeReps.size ? filtered.filter(d => activeReps.has(d.rep_name)) : filtered;
-        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲内` : `該当: ${targets.length} 件`;
-        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)} 件`;
+        document.getElementById('stats-total-text').innerText = mapSyncMode ? `地図範囲` : `該当: ${targets.length}`;
+        document.getElementById('display-count-text').innerText = `表示中: ${Math.min(targets.length, currentLimit)}`;
 
         const displayTargets = targets.slice(0, currentLimit);
         updateMapPins(displayTargets);
 
         displayTargets.forEach(c => {
-            const color = targetReps.includes(c.rep_name) ? "#5d7ea3" : "#bf5b5b"; 
+            const isMe = targetReps.includes(c.rep_name);
+            const color = isMe ? "#5d7ea3" : "#bf5b5b"; 
             const div = document.createElement('div'); div.className = 'customer-item';
             div.innerHTML = `<div style="flex:1;"><div class="info-main"><span class="status-dot" style="background:${color};"></span>${c.name}${c.credit ? `<span class="credit-alert">【${c.credit}】</span>` : ""}</div><div class="info-sub"><span class="tag tag-id">${c.r_code}</span>${c.rep_name}${c.station ? `<span class="tag" style="margin-left:8px;">${c.station}</span>` : ""}</div><div class="info-sub">${c.tel} <button class="btn-copy" onclick="copyToClipboard('${c.tel}')">COPY</button></div><div class="info-sub">${c.address}</div>${c.note ? `<div class="note-box">${c.note}</div>` : ""}</div><div class="action-area"><button onclick="openEdit('${c.id}')" class="action-btn">編集</button><a href="tel:${c.tel}" class="action-btn">発信</a><button onclick="panToMap('${c.id}', ${c.lat},${c.lng})" class="action-btn">地図</button></div>`;
             area.appendChild(div);
@@ -354,7 +352,8 @@
     }
 
     function updateMapPins(displayTargets) {
-        if(!map) return; markers.forEach(m => m.setMap(null)); markers = [];
+        if(!map || !AdvancedMarkerElement) return;
+        markers.forEach(m => m.setMap(null)); markers = [];
         displayTargets.forEach(c => {
             const isMe = targetReps.includes(c.rep_name);
             const pinView = document.createElement("div"); pinView.style.width="16px"; pinView.style.height="16px";
@@ -363,10 +362,8 @@
             const m = new AdvancedMarkerElement({ position: {lat:c.lat, lng:c.lng}, map: map, content: pinView });
             m.addListener("click", () => {
                 isPinClick=true; 
-                const creditHtml = c.credit ? `<span style="color:#c62828; font-weight:bold; margin-left:4px;">【${c.credit}】</span>` : "";
                 const telBtn = c.tel ? `<a href="tel:${c.tel}" class="info-tel">${c.tel}</a>` : "";
-                const note = c.note ? `<div style="background:#fcf8e3;padding:4px;font-size:0.75rem;margin-bottom:4px;border-radius:2px;color:#8a6d3b;">${c.note}</div>` : "";
-                const html = `<div class="info-window-container"><div class="info-window-card"><div class="info-title">${c.name}${creditHtml}</div><div class="info-meta">${c.rep_name} / ${c.r_code}</div>${telBtn}<div class="info-addr">${c.address}</div>${note}<button class="info-btn btn-edit-sm" onclick="openEdit('${c.id}')">編集</button></div></div>`;
+                const html = `<div class="info-window-container"><div class="info-window-card"><div class="info-title">${c.name}</div><div class="info-meta">${c.rep_name} / ${c.r_code}</div>${telBtn}<div class="info-addr">${c.address}</div><button class="info-btn btn-edit-sm" onclick="openEdit('${c.id}')">編集</button></div></div>`;
                 infoWindow.setContent(html); infoWindow.open(map, m);
             });
             markers.push(m);
@@ -374,31 +371,23 @@
     }
 
     function panToMap(id, lat, lng) { highlightedId = id; map.setZoom(17); map.panTo({lat, lng}); if(window.innerWidth < 900) document.querySelector('.left-section').scrollIntoView({behavior:'smooth'}); render(); }
-    
     function openSettings() {
         const repList = document.getElementById('rep-checklist'); repList.innerHTML = "";
-        const allReps = [...new Set(db.map(d => d.rep_name || "担当なし"))].sort();
-        allReps.forEach(name => {
+        [...new Set(db.map(d => d.rep_name))].sort().forEach(name => {
             const div = document.createElement('div');
-            div.innerHTML = `<label><input type="checkbox" value="${name}" ${targetReps.includes(name)?'checked':''} onchange="toggleTargetRep(this)"> ${name}</label>`;
+            div.innerHTML = `<label style="display:flex; align-items:center; gap:5px;"><input type="checkbox" value="${name}" ${targetReps.includes(name)?'checked':''} onchange="toggleTargetRep(this)"> ${name}</label>`;
             repList.appendChild(div);
         });
-        const list = document.getElementById('settings-chip-list'); list.innerHTML = "";
-        quickChips.forEach((c, idx) => { list.innerHTML += `<span class="chip">${c} <span onclick="quickChips.splice(${idx},1);openSettings()">×</span></span>`; });
-        document.getElementById('current-db-name').innerText = DB_NAME;
         document.getElementById('settingsModal').style.display='flex';
     }
-
     function toggleTargetRep(cb) { if(cb.checked) targetReps.push(cb.value); else targetReps = targetReps.filter(n => n !== cb.value); localStorage.setItem('map_target_reps_json', JSON.stringify(targetReps)); render(); }
     function openEdit(id) {
         const d = db.find(x => x.id === id); if(!d) return;
-        document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note||""; 
+        document.getElementById('edit-id').value = d.id; document.getElementById('edit-note').value = d.note; 
         document.getElementById('edit-rep').value = d.rep_name; document.getElementById('edit-r').value = d.r_code;
         document.getElementById('edit-name').value = d.name; document.getElementById('edit-building').value = d.building;
         document.getElementById('edit-tel').value = d.tel; document.getElementById('edit-addr').value = d.address;
-        document.getElementById('edit-station').value = d.station||""; document.getElementById('edit-credit').value = d.credit||"";
-        const chipArea = document.getElementById('edit-chip-area'); chipArea.innerHTML = "";
-        quickChips.forEach(t => { const sp = document.createElement('span'); sp.className='chip'; sp.innerText=t; sp.onclick = () => document.getElementById('edit-note').value += (document.getElementById('edit-note').value ? " " : "") + t; chipArea.appendChild(sp); });
+        document.getElementById('edit-station').value = d.station; document.getElementById('edit-credit').value = d.credit;
         document.getElementById('editModal').style.display='flex'; 
     }
     function saveEdit() {
@@ -409,18 +398,31 @@
     function saveDB() { localStorage.setItem(DB_NAME, JSON.stringify(db)); }
     function populateFilters() {
         const pSel=document.getElementById('prefFilter'); pSel.innerHTML='<option value="ALL">都道府県: すべて</option>';
-        [...new Set(db.map(x=>getPrefecture(x.address)))].filter(Boolean).sort().forEach(p=>{ pSel.innerHTML += `<option value="${p}">${p}</option>`; });
+        [...new Set(db.map(x=>getPrefecture(x.address)))].sort().forEach(p=>{ pSel.innerHTML += `<option value="${p}">${p}</option>`; });
     }
     function onPrefChange() { render(); }
     function getPrefecture(a) { const m=a.match(/(...??[都道府県])/); return m?m[1]:"その他"; }
     function toggleMapSync() { mapSyncMode = document.getElementById('mapSyncToggle').checked; if(mapSyncMode) render(); }
     function changeLimit() { currentLimit = document.getElementById('limitSelect').value === 'ALL' ? 99999 : 100; render(); }
     function loadMore() { currentLimit += 100; render(); }
+    function resetAndRender() { render(); }
     function shareOrDownload() { const b = new Blob([JSON.stringify(db)], {type: 'application/json'}); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `map_data.json`; a.click(); }
     function uploadData(i) { const r=new FileReader(); r.onload=e=>{try{db=JSON.parse(e.target.result);saveDB();populateFilters();render();alert("完了");}catch(z){alert("失敗");}}; r.readAsText(i.files[0]); }
     function clearAll() { if(confirm("全消去？")) { localStorage.removeItem(DB_NAME); location.reload(); } }
     function searchMapLocation() { const input = document.getElementById('mapJumpInput').value; if(input && geocoder) geocoder.geocode({ address: input }, (res, status) => { if (status === 'OK') { map.setCenter(res[0].geometry.location); map.setZoom(14); } }); }
-    function toggleGPS() { if (watchId) { navigator.geolocation.clearWatch(watchId); watchId = null; } else { watchId = navigator.geolocation.watchPosition((pos) => { if (map) map.panTo({ lat: pos.coords.latitude, lng: pos.coords.longitude }); }, null, { enableHighAccuracy: true }); } document.getElementById('gpsBtn').classList.toggle('locked'); }
+    function toggleGPS() {
+        if (!watchId) {
+            watchId = navigator.geolocation.watchPosition((pos) => {
+                const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+                if (map) map.panTo(loc);
+                if (!myLocationMarker && AdvancedMarkerElement) {
+                    const pin = document.createElement("div"); pin.style.width="18px"; pin.style.height="18px"; pin.style.backgroundColor="#4285F4"; pin.style.border="3px solid white"; pin.style.borderRadius="50%";
+                    myLocationMarker = new AdvancedMarkerElement({ map, position: loc, content: pin });
+                } else if (myLocationMarker) { myLocationMarker.position = loc; }
+            }, null, { enableHighAccuracy: true });
+        } else { navigator.geolocation.clearWatch(watchId); watchId = null; if(myLocationMarker) { myLocationMarker.setMap(null); myLocationMarker = null; } }
+        document.getElementById('gpsBtn').classList.toggle('locked');
+    }
     function saveKeyAndInit() { const k=document.getElementById('apiKey').value; if(!k)return; localStorage.setItem('map_apiKey', k); initSystem(k); }
     function copyToClipboard(t) { navigator.clipboard.writeText(t).then(() => alert("コピー完了: " + t)); }
 </script>
